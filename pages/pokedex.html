@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pokédex — PokéHub Fatec</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/global.css">
+<link rel="stylesheet" href="../assets/css/navbar.css">
+<link rel="stylesheet" href="../assets/css/pages/pokedex.css">
+</head>
+<body>
+
+  <header class="header" id="header">
+    <nav class="nav container" aria-label="Principal">
+      <a href="../index.html" class="logo">PokéHub <span>Fatec</span></a>
+
+      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu">
+        <span></span><span></span><span></span>
+      </button>
+
+      <div class="nav-menu" id="nav-menu">
+        <ul class="nav-list">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="pokedex.html" class="nav-link active">Pokédex</a></li>
+          <li><a href="eventos.html">Eventos</a></li>
+          <li><a href="comunidade.html">Comunidade</a></li>
+          <li><a href="ranking.html">Ranking</a></li>
+        </ul>
+        <a href="#login" class="btn btn-outline btn-sm">Login</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="pokedex-page">
+    <div class="device">
+      <div class="top-row">
+        <div class="lens state-idle" id="lens"></div>
+        <div class="dots"><span></span><span></span></div>
+        <div class="brand">POKÉDEX</div>
+      </div>
+
+      <div class="screen-frame">
+        <div class="screen" id="screen">
+          <div class="screen-label">Nº scanner</div>
+          <div class="placeholder" id="placeholder">
+            <span class="big">◌</span>
+            Digite o nome de um pokémon<br>e pressione buscar
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <input type="text" id="pokeInput" placeholder="ex: pikachu" autocomplete="off">
+        <button id="searchBtn" aria-label="Buscar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#4a2f00" stroke-width="2.5" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+        </button>
+      </div>
+      <div class="hint">powered by pokeapi.co</div>
+    </div>
+  </main>
+
+  <script src="../assets/js/script.js"></script>
+<script src="../assets/js/pokedex.js"></script>
+</body>
+</html>
