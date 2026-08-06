@@ -6,10 +6,10 @@ const pokemonsDestaque = [
     imagem: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png",
   },
   {
-    nome: "Blastoise",
-    tipo: "Água",
-    classeTipo: "type-water",
-    imagem: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/9.png",
+    nome: "Mew",
+    tipo: "Psiquico",
+    classeTipo: "type-psychic",
+    imagem: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/151.png",
   },
   {
     nome: "Pikachu",
@@ -18,10 +18,10 @@ const pokemonsDestaque = [
     imagem: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
   },
   {
-    nome: "Venusaur",
-    tipo: "Planta",
-    classeTipo: "type-grass",
-    imagem: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png",
+    nome: "Gengar",
+    tipo: "Fantasma",
+    classeTipo: "type-ghost",
+    imagem: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png",
   },
 ];
 
