@@ -1,97 +1,136 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PokéHub Fatec — Comunidade Pokémon da FATEC Registro</title>
-    <meta name="description"
-        content="Comunidade Pokémon para estudantes da FATEC Registro. Pokédex, eventos, ranking e conexão entre treinadores." />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
-        rel="stylesheet" />
-    <link rel="stylesheet" href="assets/css/global.css">
-    <link rel="stylesheet" href="assets/css/navbar.css">
-    <link rel="stylesheet" href="assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCG — PokéHub Fatec</title>
+  <meta name="description" content="Busque cartas do Pokémon TCG e veja detalhes, raridade e efeito holo em tempo real.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/global.css">
+  <link rel="stylesheet" href="../assets/css/navbar.css">
+  <link rel="stylesheet" href="../assets/css/pages/tcg.css">
 </head>
-
 <body>
-    <header class="header" id="header">
-        <nav class="nav container" aria-label="Principal">
-            <a href="#home" class="logo">PokéHub <span>Fatec</span></a>
 
-            <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false"
-                aria-controls="nav-menu">
-                <span></span><span></span><span></span>
-            </button>
+  <header class="header" id="header">
+    <nav class="nav container" aria-label="Principal">
+      <a href="../index.html" class="logo">PokéHub <span>Fatec</span></a>
 
-            <div class="nav-menu" id="nav-menu">
-                <ul class="nav-list">
-                    <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="pages/pokedex.html">Pokédex</a></li>
-                    <li><a href="pages/tcg.html">TCG</a></li>
-                    <li><a href="pages/eventos.html">Eventos</a></li>
-                    <li><a href="pages/comunidade.html">Comunidade</a></li>
-                    <li><a href="pages/ranking.html">Ranking</a></li>
-                </ul>
-                <a href="#login" class="btn btn-outline btn-sm">Login</a>
-            </div>
-        </nav>
-    </header>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-menu">
+        <span></span><span></span><span></span>
+      </button>
 
-    <main>
-        <section class="hero" id="home">
-            <div class="hero-bg" aria-hidden="true"></div>
-            <div class="container hero-grid">
-                <div class="hero-content">
-                    <p class="eyebrow">FATEC Registro</p>
-                    <h1>Bem-vindo ao <span>PokéHub Fatec</span></h1>
-                    <p class="hero-subtitle">A comunidade Pokémon da FATEC Registro.</p>
-                    <p class="hero-text">
-                        Encontre Pokémon, participe de eventos, conheça treinadores e compartilhe sua jornada.
-                    </p>
-                    <div class="hero-actions">
-                        <a href="pages/pokedex.html" class="btn btn-primary">Explorar Pokédex</a>
-                        <a href="pages/comunidade.html" class="btn btn-secondary">Conhecer Comunidade</a>
-                    </div>
-                </div>
-                <div class="hero-visual">
-                    <div class="hero-orb" aria-hidden="true"></div>
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png"
-                        alt="Charizard — ilustração temporária" class="hero-img" width="420" height="420" />
-                </div>
-            </div>
-        </section>
+      <div class="nav-menu" id="nav-menu">
+        <ul class="nav-list">
+          <li><a href="../index.html">Home</a></li>
+          <li><a href="pokedex.html">Pokédex</a></li>
+          <li><a href="tcg.html" class="nav-link active">TCG</a></li>
+          <li><a href="eventos.html">Eventos</a></li>
+          <li><a href="comunidade.html">Comunidade</a></li>
+          <li><a href="ranking.html">Ranking</a></li>
+        </ul>
+        <a href="#login" class="btn btn-outline btn-sm">Login</a>
+      </div>
+    </nav>
+  </header>
 
-        <section class="featured" id="destaques" aria-labelledby="featured-title">
-            <div class="container">
-                <header class="section-header">
-                    <h2 id="featured-title">Pokémon em destaque</h2>
-                    <p>Uma amostra do que você encontra na Pokédex do hub.</p>
-                </header>
-                <div class="pokemon-grid" id="pokemon-grid"></div>
-            </div>
-        </section>
-    </main>
+  <main class="tcg-page">
+    <div class="tcg-intro container">
+      <p class="eyebrow">Card Dex</p>
+      <h1>Busca de cartas <span>TCG</span></h1>
+      <p class="tcg-intro-text">Digite o nome de um Pokémon para revelar as edições de carta disponíveis.</p>
+    </div>
 
-    <footer class="footer">
-        <div class="container footer-grid">
-            <div class="footer-brand">
-                <p class="logo">PokéHub <span>Fatec</span></p>
-                <p>Projeto desenvolvido para fins educacionais.</p>
-                <p class="footer-legal">Pokémon © Nintendo, Game Freak e Creatures Inc.</p>
-            </div>
-            <nav class="footer-links" aria-label="Rodapé">
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
-                <a href="mailto:contato@pokehub.fatec">Contato</a>
-            </nav>
+    <div class="tcg-slot container">
+      <div class="slot-frame">
+        <span class="slot-groove" aria-hidden="true"></span>
+        <input type="text" id="tcgInput" placeholder="ex: charizard" autocomplete="off" aria-label="Nome do Pokémon">
+        <button id="tcgSearchBtn" aria-label="Buscar carta">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <circle cx="11" cy="11" r="7"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <span>Buscar</span>
+        </button>
+      </div>
+      <p class="slot-hint">powered by pokemontcg.io</p>
+    </div>
+
+    <div class="tcg-status" id="tcgStatus" hidden></div>
+
+    <div class="tcg-results container" id="tcgResults" hidden>
+      <p class="results-label" id="resultsLabel"></p>
+      <div class="tcg-strip-wrap">
+        <button type="button" class="strip-arrow strip-arrow--prev" id="stripPrev" aria-label="Cartas anteriores">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        <div class="tcg-strip" id="tcgStrip"></div>
+        <button type="button" class="strip-arrow strip-arrow--next" id="stripNext" aria-label="Próximas cartas">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="tcg-stage container" id="tcgStage" hidden>
+      <div class="tcg-card-holo" id="tcgHolo">
+        <img id="tcgCardImg" src="" alt="">
+        <span class="holo-shine" aria-hidden="true"></span>
+        <span class="holo-glare" aria-hidden="true"></span>
+      </div>
+
+      <div class="tcg-info">
+        <p class="info-set" id="infoSet">—</p>
+        <h2 id="infoName">—</h2>
+        <div class="info-tags" id="infoTags"></div>
+
+        <dl class="info-grid">
+          <div>
+            <dt>HP</dt>
+            <dd id="infoHp">—</dd>
+          </div>
+          <div>
+            <dt>Raridade</dt>
+            <dd id="infoRarity">—</dd>
+          </div>
+          <div>
+            <dt>Número</dt>
+            <dd id="infoNumber">—</dd>
+          </div>
+          <div>
+            <dt>Artista</dt>
+            <dd id="infoArtist">—</dd>
+          </div>
+        </dl>
+
+        <div class="info-price" id="infoPrice" hidden>
+          <span class="price-label">Preço de mercado</span>
+          <span class="price-value" id="infoPriceValue">—</span>
         </div>
-    </footer>
 
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/home.js"></script>
+        <a id="infoLink" class="btn btn-outline btn-sm" href="#" target="_blank" rel="noopener noreferrer" hidden>Ver na TCGplayer</a>
+      </div>
+    </div>
+
+    <div class="tcg-empty" id="tcgEmpty">
+      <div class="empty-fan" aria-hidden="true">
+        <span class="fan-card fan-card--left"></span>
+        <span class="fan-card fan-card--right"></span>
+        <span class="fan-card fan-card--center">
+          <span class="fan-glyph">✦</span>
+        </span>
+      </div>
+      <span class="empty-eyebrow">Mesa vazia</span>
+      <p class="empty-copy">Digite o nome de um Pokémon acima para abrir o pacote e revelar as cartas.</p>
+    </div>
+  </main>
+
+  <script src="../assets/js/script.js"></script>
+  <script src="../assets/js/modules/tcg.js"></script>
 </body>
-
 </html>
