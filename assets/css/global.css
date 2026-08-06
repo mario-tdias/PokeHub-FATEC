@@ -130,3 +130,24 @@ ul {
   border-color: var(--yellow);
   color: var(--yellow);
 }
+
+.pokemon-card:has(.type-fire) .btn-ghost:hover {
+  border-color: #ff8a80;
+  color: #ff8a80;
+}
+
+.pokemon-card:has(.type-psychic) .btn-ghost:hover {
+  border-color: #ff00d4;
+  color: #ff00d4;
+}
+
+.pokemon-card:has(.type-electric) .btn-ghost:hover {
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
+
+.pokemon-card:has(.type-ghost) .btn-ghost:hover {
+  border-color: #ff41e6;
+  color: #ff41e6;
+}
+

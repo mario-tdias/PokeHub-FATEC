@@ -134,9 +134,27 @@
 .pokemon-card:nth-child(3) { animation-delay: 0.16s; }
 .pokemon-card:nth-child(4) { animation-delay: 0.24s; }
 
+
 .pokemon-card:hover {
   transform: translateY(-6px);
   border-color: rgba(255, 213, 79, 0.35);
+}
+
+
+.pokemon-card:has(.type-fire):hover {
+  border-color: #ff8a80; 
+}
+
+.pokemon-card:has(.type-psychic):hover {
+  border-color: #ff00d4;
+}
+
+.pokemon-card:has(.type-electric):hover {
+  border-color: var(--yellow);
+}
+
+.pokemon-card:has(.type-ghost):hover {
+  border-color: #6e0460;
 }
 
 @keyframes fadeUp {
@@ -176,7 +194,7 @@
 .type-water { background: rgba(33, 150, 243, 0.2); color: #90caf9; }
 .type-electric { background: rgba(255, 213, 79, 0.2); color: var(--yellow); }
 .type-grass { background: rgba(76, 175, 80, 0.2); color: #a5d6a7; }
-.type-ghost { background: rgba(50, 3, 138, 0.2); color: #5900ff; }
+.type-ghost { background: rgba(50, 3, 138, 0.2); color: #ff41e6; }
 .type-psychic { background: rgba(138, 3, 120, 0.2); color: #ff00d4; }
 
 .footer {
