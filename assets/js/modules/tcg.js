@@ -125,6 +125,11 @@
         "Surging Sparks": "Faíscas Galpantes",
         "Prismatic Evolutions": "Evoluções Prismáticas",
         "Phantasmal Flames": "Fogo Fantasmagórico",
+        "Destined Rivals": "Rivais Predestinados",
+        "Corona Estelar": "Coroa Estelar",
+        "Crown Zenith": "Espada e Escudo 12.5: Realeza Absoluta",
+
+
     };
 
     const dicionarioTipos = {
@@ -143,6 +148,26 @@
         Energy: "Energia"
     };
 
+    const dicionarioRaridades = {
+    "Common": "Comum",
+    "Uncommon": "Incomum",
+    "Rare": "Rara",
+    "Ultra Rare": "Ultra Rara",
+    "Rare Holo": "Rara Holo",
+    "Rare Holo GX": "Rara Holo GX",
+    "Rare Holo EX": "Rara Holo EX",
+    "Rare Holo V": "Rara Holo V",
+    "Rare Holo VMAX": "Rara Holo VMAX",
+    "Rare Rainbow": "Rara Arco-íris",
+    "Rare Secret": "Rara Secreta",
+    "Illustration Rare": "Ilustração Rara",
+    "Special Illustration Rare": "Ilustração Rara Especial",
+    "Hyper Rare": "Híper Rara",
+    "Mega Hyper Rare": "Dourada",
+    "Double Rare": "Rara Dupla",
+    "Promo": "Promocional",
+};
+
     function traduzirTipo(tipoOriginal) {
         if (!tipoOriginal) return "Incolor";
         return dicionarioTipos[tipoOriginal] || tipoOriginal;
@@ -152,6 +177,10 @@
         if (!nomeOriginal) return "—";
         return dicionarioColecoes[nomeOriginal] || nomeOriginal;
     }
+    function traduzirRaridade(raridadeOriginal) {
+    if (!raridadeOriginal) return "—";
+    return dicionarioRaridades[raridadeOriginal] || raridadeOriginal;
+}
 
     function mostrarCarta(carta) {
         palcoCarta.hidden = false;
@@ -181,7 +210,7 @@
             infoTipos.appendChild(etiqueta);
         }
         infoHp.textContent = carta.hp || "—";
-        infoRaridade.textContent = carta.rarity || "—";
+        infoRaridade.textContent = traduzirRaridade(carta.rarity);
         infoNumero.textContent = carta.number
             ? `${carta.number}${carta.set?.printedTotal ? " / " + carta.set.printedTotal : ""}`
             : "—";
