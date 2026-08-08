@@ -139,6 +139,21 @@
   border-color: rgba(255, 213, 79, 0.35);
 }
 
+
+.pokemon-card:has(.type-fire):hover {
+  border-color: #ff8a80;
+}
+.pokemon-card:has(.type-psychic):hover {
+  border-color: #ff00d4;
+}
+.pokemon-card:has(.type-electric):hover {
+  border-color: var(--yellow);
+}
+.pokemon-card:has(.type-ghost):hover {
+  border-color: #5900ff;
+}
+
+
 @keyframes fadeUp {
   to {
     opacity: 1;

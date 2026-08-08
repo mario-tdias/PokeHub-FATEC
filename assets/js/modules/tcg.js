@@ -128,6 +128,10 @@
         "Destined Rivals": "Rivais Predestinados",
         "Corona Estelar": "Coroa Estelar",
         "Crown Zenith": "Espada e Escudo 12.5: Realeza Absoluta",
+        "Paldean Fates": "Destinos de Paldea",
+        "Pitch Black": "Escuridão Absoluta",
+        "Battle Styles": "Estilos de Batalha",
+        "Darkness Ablaze": "Escuridão Incandescente",
 
 
     };
