@@ -65,13 +65,39 @@
             </div>
         </section>
 
-        <section class="featured" id="destaques" aria-labelledby="featured-title">
+        <section class="encounter" id="destaques" aria-labelledby="encounter-title">
+            <svg class="visually-hidden" aria-hidden="true" focusable="false">
+                <symbol id="grass-tuft-shape" viewBox="0 0 80 110">
+                    <path d="M10,110 C6,72 0,48 14,8 C19,40 21,72 23,110 Z" fill="#2e7d32" />
+                    <path d="M28,110 C23,60 30,28 40,2 C45,34 41,72 41,110 Z" fill="#43a047" />
+                    <path d="M47,110 C46,66 53,36 63,8 C60,44 56,76 54,110 Z" fill="#388e3c" />
+                    <path d="M58,110 C61,72 67,50 77,18 C70,52 68,82 66,110 Z" fill="#2e7d32" />
+                </symbol>
+            </svg>
+
             <div class="container">
                 <header class="section-header">
-                    <h2 id="featured-title">Pokémon em destaque</h2>
-                    <p>Uma amostra do que você encontra na Pokédex do hub.</p>
+                    <h2 id="encounter-title">Um Pokémon selvagem apareceu!</h2>
+                    <p>Cutuque a grama alta e veja quem estava se escondendo.</p>
                 </header>
-                <div class="pokemon-grid" id="pokemon-grid"></div>
+
+                <p class="encounter-message" id="encounter-message" aria-live="polite"></p>
+
+                <div class="encounter-field" id="encounter-field" role="group" aria-label="Touceiras de grama, escolha uma para procurar um Pokémon"></div>
+
+                <div class="encounter-panel" id="encounter-panel" hidden>
+                    <img id="encounter-img" class="encounter-panel-img" alt="" width="96" height="96" />
+                    <div class="encounter-panel-body">
+                        <p class="encounter-panel-line" id="encounter-line"></p>
+                        <span class="type-badge" id="encounter-type"></span>
+                        <div class="encounter-panel-actions">
+                            <a href="pages/pokedex.html" id="encounter-view-link" class="btn btn-ghost btn-sm">Ver na
+                                Pokédex</a>
+                            <button type="button" class="btn btn-primary btn-sm" id="encounter-next">Procurar
+                                outro</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     </main>

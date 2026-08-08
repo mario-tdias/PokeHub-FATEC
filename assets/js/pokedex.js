@@ -222,3 +222,17 @@ campoPokemon.addEventListener("keydown", (evento) => {
 
 });
 
+
+function buscarPeloParametroDaUrl() {
+
+    const parametros = new URLSearchParams(window.location.search);
+    const idOuNome = parametros.get("id");
+
+    if (!idOuNome) return;
+
+    campoPokemon.value = idOuNome;
+    buscarPokemon();
+}
+
+
+buscarPeloParametroDaUrl();
