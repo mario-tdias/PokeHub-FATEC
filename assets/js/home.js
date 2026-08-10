@@ -2,45 +2,52 @@ const pokemonsEncontro = [
   {
     id: 6,
     nome: "Charizard",
-    tipo: "Fogo",
-    classeTipo: "type-fire",
+    tipos: ["Fogo", "Voador"],
+    classesTipo: ["type-fire", "type-flying"],
     imagem: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png",
   },
   {
     id: 151,
     nome: "Mew",
-    tipo: "Psíquico",
-    classeTipo: "type-psychic",
+    tipos: ["Psíquico"],
+    classesTipo: ["type-psychic"],
     imagem: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/151.png",
   },
   {
     id: 25,
     nome: "Pikachu",
-    tipo: "Elétrico",
-    classeTipo: "type-electric",
+    tipos: ["Elétrico"],
+    classesTipo: ["type-electric"],
     imagem: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/25.png",
   },
   {
     id: 94,
     nome: "Gengar",
-    tipo: "Fantasma",
-    classeTipo: "type-ghost",
+    tipos: ["Fantasma", "Venenoso"],
+    classesTipo: ["type-ghost", "type-poison"],
     imagem: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png",
   },
-  {
-    id: 1,
-    nome: "Bulbasaur",
-    tipo: "Planta",
-    classeTipo: "type-grass",
-    imagem: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-  },
-  {
-    id: 7,
-    nome: "Squirtle",
-    tipo: "Água",
-    classeTipo: "type-water",
-    imagem: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png",
-  },
+{
+  id: 658,
+  nome: "Greninja",
+  tipos: ["Água", "Sombrio"], 
+  classesTipo: ["type-water", "type-dark"], 
+  imagem: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/658.png",
+},
+ {
+  id: 448,
+  nome: "Lucario",
+  tipos: ["Lutador", "Aço"], // ou ["Água", "Lutador"]
+  classesTipo: ["type-fight", "type-steel"], // ou ["type-water", "type-fighting"]
+  imagem: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/448.png",
+},
+{
+  id: 778,
+  nome: "Mimikyu",
+  tipos: ["Fada", "Fantasma"], 
+  classesTipo: ["type-fairy", "type-ghost"], 
+  imagem: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/778.png",
+}
 ];
 
 const NUMERO_TOUCEIRAS = 6;
@@ -169,8 +176,16 @@ function revelarPokemon(touceira) {
   imagemPainel.src = pokemonAtual.imagem;
   imagemPainel.alt = pokemonAtual.nome;
   linhaPainel.textContent = `Um ${pokemonAtual.nome} selvagem apareceu!`;
-  tipoPainel.textContent = pokemonAtual.tipo;
-  tipoPainel.className = `type-badge ${pokemonAtual.classeTipo}`;
+
+
+  tipoPainel.className = "pokemon-types"; 
+  tipoPainel.innerHTML = pokemonAtual.tipos
+    .map(
+      (tipo, index) =>
+        `<span class="type-badge ${pokemonAtual.classesTipo[index]}">${tipo}</span>`
+    )
+    .join("");
+
   linkPainel.href = `pages/pokedex.html?id=${pokemonAtual.id}`;
   painel.hidden = false;
   emAnimacao = false;
