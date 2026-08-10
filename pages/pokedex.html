@@ -9,8 +9,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/global.css">
-<link rel="stylesheet" href="../assets/css/navbar.css">
-<link rel="stylesheet" href="../assets/css/pages/pokedex.css">
+  <link rel="stylesheet" href="../assets/css/navbar.css">
+  <link rel="stylesheet" href="../assets/css/pages/pokedex.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/examples/jsm/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+        "@splinetool/loader": "https://unpkg.com/@splinetool/loader@1.9.80/build/SplineLoader.js"
+      }
+    }
+  </script>
 </head>
 <body>
 
@@ -81,15 +90,6 @@
   </main>
 
   <script src="../assets/js/script.js"></script>
-  <script type="importmap">
-    {
-      "imports": {
-        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-        "three/examples/jsm/controls/OrbitControls.js": "https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js",
-        "@splinetool/loader": "https://unpkg.com/@splinetool/loader@1.9.80/build/SplineLoader.js"
-      }
-    }
-  </script>
   <script type="module" src="../assets/js/pokedex3d.js"></script>
   <script src="../assets/js/pokedex.js"></script>
 </body>
