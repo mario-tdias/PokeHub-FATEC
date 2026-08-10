@@ -69,23 +69,29 @@ function mostrarPokemon(pokemon) {
 
   tela.innerHTML = `
     <div class="ds-poke-layout">
-      <!-- Quadro na tela superior (esquerda) -->
-      <div class="ds-quadro-box">
-        <div class="sprite-wrap">
-          <img src="${imagemPokemon}" alt="${pokemon.name}">
-        </div>
-      </div>
-      
-      <!-- Informações Empilhadas à Direita -->
-      <div class="ds-info-side">
-        <div class="poke-number">Nº ${numero}</div>
+      <!-- Linha Superior: Nome (esquerda, em cima do Pokémon) e Tipagem (direita) -->
+      <div class="ds-top-header">
         <div class="poke-name">${pokemon.name}</div>
         <div class="poke-types">${tipos}</div>
+      </div>
+      
+      <!-- Corpo Principal da Tela Superior -->
+      <div class="ds-main-body">
+        <!-- Quadro Cinza (Pokémon Centralizado) -->
+        <div class="ds-quadro-box">
+          <div class="sprite-wrap">
+            <img src="${imagemPokemon}" alt="${pokemon.name}">
+          </div>
+        </div>
         
-        <div class="ds-info-stack">
-          <div class="ds-info-row"><strong>Altura</strong> <span>${altura} m</span></div>
-          <div class="ds-info-row"><strong>Peso</strong> <span>${peso} kg</span></div>
-          <div class="ds-info-row"><strong>Habilidade</strong> <span>${habilidade}</span></div>
+        <!-- Informações à Direita (Delimitadas no espaço azul) -->
+        <div class="ds-info-side">
+          <div class="poke-number">Nº ${numero}</div>
+          <div class="ds-info-stack">
+            <div class="ds-info-row"><strong>Altura</strong> <span>${altura} m</span></div>
+            <div class="ds-info-row"><strong>Peso</strong> <span>${peso} kg</span></div>
+            <div class="ds-info-row"><strong>Habilidade</strong> <span>${habilidade}</span></div>
+          </div>
         </div>
       </div>
     </div>
