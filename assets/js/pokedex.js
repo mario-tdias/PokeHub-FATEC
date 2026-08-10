@@ -11,27 +11,24 @@ function alterarLente(estado) {
 
 function mostrarTelaInicial() {
   tela.innerHTML = `
-    <div class="screen-label">Nº scanner</div>
-    <div class="placeholder">
+    <div class="ds-placeholder">
       <span class="big">◌</span>
-      Digite o nome de um pokémon<br>e pressione buscar
+      Digite o nome de um pokémon na tela inferior e pressione buscar
     </div>
   `;
 }
 
 function mostrarCarregando() {
   tela.innerHTML = `
-    <div class="screen-label">Nº scanner</div>
-    <div class="placeholder">
+    <div class="ds-placeholder">
       <span class="big">◐</span>
-      Buscando...
+      Buscando na PokéAPI...
     </div>
   `;
 }
 
 function mostrarErro(nomePokemon) {
   tela.innerHTML = `
-    <div class="screen-label">Nº scanner</div>
     <div class="error-msg">
       <span class="big">✕</span>
       Pokémon "${nomePokemon}" não encontrado.<br>
@@ -52,7 +49,7 @@ const HABILIDADES_PT = {
   overgrow: "Crescimento Excessivo", blaze: "Chama", torrent: "Torrente",
   static: "Estático", pressure: "Pressão", synchronize: "Sincronismo",
   intimidate: "Intimidação", levitate: "Levitação", sturdy: "Robustez",
-  adaptability: "Adaptabilidade"
+  adaptability: "Adaptabilidade", inner_focus: "Foco Interno", steadfast: "Inabalável"
 };
 
 function mostrarPokemon(pokemon) {
@@ -71,17 +68,26 @@ function mostrarPokemon(pokemon) {
   const habilidade = HABILIDADES_PT[pokemon.abilities[0]?.ability?.name] || pokemon.abilities[0]?.ability?.name || "Desconhecida";
 
   tela.innerHTML = `
-    <div class="screen-label">Nº scanner</div>
-    <div class="sprite-wrap">
-      <img src="${imagemPokemon}" alt="${pokemon.name}">
-    </div>
-    <div class="poke-number">Nº ${numero}</div>
-    <div class="poke-name">${pokemon.name}</div>
-    <div class="poke-types">${tipos}</div>
-    <div class="poke-info">
-      <div><strong>Altura</strong><br>${altura} m</div>
-      <div><strong>Peso</strong><br>${peso} kg</div>
-      <div><strong>Habilidade</strong><br>${habilidade}</div>
+    <div class="ds-poke-layout">
+      <!-- Quadro na tela superior (esquerda) -->
+      <div class="ds-quadro-box">
+        <div class="sprite-wrap">
+          <img src="${imagemPokemon}" alt="${pokemon.name}">
+        </div>
+      </div>
+      
+      <!-- Informações Empilhadas à Direita -->
+      <div class="ds-info-side">
+        <div class="poke-number">Nº ${numero}</div>
+        <div class="poke-name">${pokemon.name}</div>
+        <div class="poke-types">${tipos}</div>
+        
+        <div class="ds-info-stack">
+          <div class="ds-info-row"><strong>Altura</strong> <span>${altura} m</span></div>
+          <div class="ds-info-row"><strong>Peso</strong> <span>${peso} kg</span></div>
+          <div class="ds-info-row"><strong>Habilidade</strong> <span>${habilidade}</span></div>
+        </div>
+      </div>
     </div>
   `;
 }

@@ -186,10 +186,14 @@
     zoomIn: function () {
       isZoomed = true;
       container.classList.add("zoomed");
+      if (pokedexGroup) pokedexGroup.visible = false;
+      if (canvas) canvas.style.display = "none";
     },
     resetView: function () {
       isZoomed = false;
       container.classList.remove("zoomed");
+      if (pokedexGroup) pokedexGroup.visible = true;
+      if (canvas) canvas.style.display = "block";
     },
     isZoomed: function () {
       return isZoomed;
