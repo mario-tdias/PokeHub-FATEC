@@ -148,64 +148,24 @@
   margin-bottom: 4px;
 }
 
-/* Layout do Pokémon na Tela Superior */
+/* Layout do Pokémon na Tela Superior (CSS Grid de 2 colunas) */
 .ds-poke-layout {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 42% 1fr;
   width: 100%;
   height: 100%;
+  gap: 8px;
+  align-items: center;
   box-sizing: border-box;
 }
 
-/* Linha Superior: Nome (à esquerda, em cima do Pokémon) e Tipagem (à direita) */
-.ds-top-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  padding-bottom: 2px;
-}
-
-.ds-top-header .poke-name {
-  font-family: 'Baloo 2', sans-serif;
-  font-size: 14px;
-  font-weight: 800;
-  color: #ffffff;
-  text-transform: capitalize;
-  line-height: 1.1;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
-}
-
-.ds-top-header .poke-types {
-  display: flex;
-  gap: 3px;
-  align-items: center;
-}
-
-.ds-top-header .type-pill {
-  font-size: 8px;
-  padding: 1.5px 5px;
-  letter-spacing: 0.5px;
-}
-
-/* Corpo Principal da Tela Superior */
-.ds-main-body {
-  display: flex;
-  width: 100%;
-  flex: 1;
-  gap: 4px;
-  align-items: center;
-  overflow: hidden;
-}
-
-/* Quadro Esquerda (Quadro de Imagem no pokedex.png) */
+/* Quadro Esquerda (Quadro Cinza com Stroke Amarelo no pokedex.png) */
 .ds-quadro-box {
-  width: 42%;
-  height: 95%;
+  width: 100%;
+  height: 92%;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
   border-radius: 6px;
   overflow: hidden;
   box-sizing: border-box;
@@ -230,39 +190,82 @@
   filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.4));
 }
 
-/* Informações Empilhadas à Direita (Delimitadas estritamente no espaço azul) */
+/* Painel de Informações à Direita (Reordenado e Delimitado no Espaço Azul) */
 .ds-info-side {
-  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 2px;
-  color: #fff;
+  gap: 4px;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
   box-sizing: border-box;
-  max-width: 58%;
 }
 
+/* 1. Número acima do Nome */
 .ds-info-side .poke-number {
   font-size: 9.5px;
   color: #6bffb0;
   letter-spacing: 1px;
   font-weight: 700;
+  line-height: 1;
 }
 
-.ds-info-stack {
+/* 2. Nome e Tipos */
+.poke-header-group {
   display: flex;
   flex-direction: column;
   gap: 2px;
+}
+
+.poke-header-group .poke-name {
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 14px;
+  font-weight: 800;
+  color: #ffffff;
+  text-transform: capitalize;
+  line-height: 1.1;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.poke-header-group .poke-types {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.type-pill {
+  font-size: 8px;
+  padding: 1.5px 5px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-radius: 999px;
+  border: 1px solid var(--phosphor-dim, #2f6b52);
+  color: var(--phosphor, #6bffb0);
+  background: rgba(107, 255, 176, 0.08);
+  font-weight: 600;
+}
+
+/* 3. Painel de Especificações Compacto (ALTURA, PESO, HABILIDADE) */
+.ds-info-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5px;
   width: 100%;
+  margin-top: 2px;
 }
 
 .ds-info-row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   background: rgba(0, 0, 0, 0.55);
-  border: 1px solid rgba(107, 255, 176, 0.25);
-  padding: 2px 4px;
+  border: 1px solid rgba(107, 255, 176, 0.22);
+  padding: 2px 5px;
   border-radius: 4px;
   font-size: 8.5px;
   width: 100%;
@@ -274,6 +277,8 @@
   text-transform: uppercase;
   font-size: 7.5px;
   letter-spacing: 0.5px;
+  font-weight: 700;
+  flex-shrink: 0;
 }
 
 .ds-info-row span {
@@ -282,6 +287,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: right;
+  max-width: 65%;
 }
 
 /* Tela Inferior (Bottom Screen inside pokedex.png) */
