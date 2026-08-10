@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 
 const container = document.getElementById("pokedex3d-container");
 const canvas = document.getElementById("pokedex3d-canvas");
@@ -28,7 +29,6 @@ if (container && canvas) {
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Color space & Tone Mapping setup matching reference lighting
     if (THREE.SRGBColorSpace) {
       renderer.outputColorSpace = THREE.SRGBColorSpace;
     } else if (THREE.sRGBEncoding) {
@@ -40,35 +40,28 @@ if (container && canvas) {
       renderer.toneMappingExposure = 1.0;
     }
 
-    // Studio Lighting matching reference image
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+    // Configuração do mapa de ambiente sintético (RoomEnvironment)
+    const pmremGenerator = new THREE.PMREMGenerator(renderer);
+    pmremGenerator.compileEquirectangularShader();
+    scene.environment = pmremGenerator.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+
+    // As luzes direcionais entram para dar destaques e sombras
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
     scene.add(ambientLight);
 
-    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.8);
-    hemiLight.position.set(0, 20, 0);
-    scene.add(hemiLight);
-
-    const mainLight = new THREE.DirectionalLight(0xffffff, 2.2);
+    const mainLight = new THREE.DirectionalLight(0xffffff, 1.5);
     mainLight.position.set(5, 10, 7);
     scene.add(mainLight);
-
-    const fillLight = new THREE.DirectionalLight(0xffffff, 1.0);
-    fillLight.position.set(-5, 5, 5);
-    scene.add(fillLight);
-
-    const backLight = new THREE.DirectionalLight(0xffffff, 0.6);
-    backLight.position.set(0, 5, -7);
-    scene.add(backLight);
 
     pokedexGroup = new THREE.Group();
     scene.add(pokedexGroup);
 
-    // Orbit Controls for interactive navigation
+    // Orbit Controls (desabilitada rotação para não conflitar com parallax do mouse)
     controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.08;
     controls.enableZoom = false;
-    controls.maxPolarAngle = Math.PI / 2 + 0.1;
+    controls.enableRotate = false;
 
     loadGLTFModel();
     addEventListeners();
@@ -100,6 +93,14 @@ if (container && canvas) {
 
           model.traverse((child) => {
             if (child.isMesh && child.material) {
+              // Se o modelo veio com metalicidade alta demais no plástico, reduzimos:
+              if (child.material.metalness !== undefined && child.material.metalness > 0.3) {
+                child.material.metalness = 0.1;
+              }
+              // Garante que o material tenha um mínimo de rugosidade para espalhar a luz
+              if (child.material.roughness !== undefined && child.material.roughness < 0.2) {
+                child.material.roughness = 0.35;
+              }
               child.material.needsUpdate = true;
             }
           });
@@ -139,8 +140,8 @@ if (container && canvas) {
       const rect = container.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / container.clientWidth) * 2 - 1;
       const y = -(((e.clientY - rect.top) / container.clientHeight) * 2 - 1);
-      targetRotationY = x * 0.3;
-      targetRotationX = -y * 0.2;
+      targetRotationY = x * 0.35;
+      targetRotationX = -y * 0.25;
     });
 
     canvas.addEventListener("click", () => {
@@ -173,8 +174,8 @@ if (container && canvas) {
     }
 
     if (!isZoomed && pokedexGroup) {
-      pokedexGroup.rotation.y += (targetRotationY - pokedexGroup.rotation.y) * 0.05;
-      pokedexGroup.rotation.x += (targetRotationX - pokedexGroup.rotation.x) * 0.05;
+      pokedexGroup.rotation.y += (targetRotationY - pokedexGroup.rotation.y) * 0.08;
+      pokedexGroup.rotation.x += (targetRotationX - pokedexGroup.rotation.x) * 0.08;
     }
 
     renderer.render(scene, camera);
