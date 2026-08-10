@@ -12,21 +12,6 @@
   --ink: #142033;
 }
 
-*{ box-sizing: border-box; }
-
-body{
-  margin:0;
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:
-    radial-gradient(circle at 50% 0%, #2a3550 0%, #0b1120 70%);
-  font-family:'Space Mono', monospace;
-  color: var(--cream);
-  padding: 28px 16px;
-}
-
 .device{
   width: 100%;
   max-width: 420px;
@@ -230,6 +215,9 @@ body{
   display: flex;
   align-items: center;
   justify-content: center;
+  background: radial-gradient(circle at 50% 0%, #2a3550 0%, #0b1120 70%);
+  font-family: 'Space Mono', monospace;
+  color: var(--cream);
 }
 
 .type-pill{
@@ -310,4 +298,3 @@ body{
 @media (prefers-reduced-motion: reduce){
   .lens.state-loading{ animation: none; }
 }
-

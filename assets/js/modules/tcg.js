@@ -8,6 +8,8 @@
     const elementoResultados = document.getElementById("tcgResults");
     const rotuloResultados = document.getElementById("resultsLabel");
     const faixaCartas = document.getElementById("tcgStrip");
+    const botaoStripAnterior = document.getElementById("stripPrev");
+    const botaoStripProximo = document.getElementById("stripNext");
     const palcoCarta = document.getElementById("tcgStage");
     const elementoVazio = document.getElementById("tcgEmpty");
 
@@ -89,8 +91,31 @@
         return null;
     }
 
+    function atualizarEstadoNavegacao() {
+        if (!botaoStripAnterior || !botaoStripProximo) return;
+
+        const margem = 4;
+        const rolagemMaxima = faixaCartas.scrollWidth - faixaCartas.clientWidth;
+
+        botaoStripAnterior.disabled = faixaCartas.scrollLeft <= margem;
+        botaoStripProximo.disabled = faixaCartas.scrollLeft >= rolagemMaxima - margem;
+    }
+
+    function rolarFaixa(direcao) {
+        const miniatura = faixaCartas.querySelector(".tcg-thumb");
+        const larguraPasso = miniatura
+            ? miniatura.getBoundingClientRect().width + 14
+            : 160;
+
+        faixaCartas.scrollBy({
+            left: direcao * larguraPasso * 3,
+            behavior: prefereMovimentoReduzido ? "auto" : "smooth",
+        });
+    }
+
     function renderizarFaixa(cartas) {
         faixaCartas.innerHTML = "";
+        faixaCartas.scrollLeft = 0;
 
         cartas.forEach((carta, indice) => {
             const botao = document.createElement("button");
@@ -110,6 +135,8 @@
 
             faixaCartas.appendChild(botao);
         });
+
+        atualizarEstadoNavegacao();
     }
 
     const dicionarioColecoes = {
@@ -255,7 +282,7 @@
 
         return `${URL_API}?q=${encodeURIComponent(
             termoLucene
-        )}&pageSize=20&orderBy=-set.releaseDate`;
+        )}&pageSize=50&orderBy=-set.releaseDate`;
     }
 
     async function buscarCartasApi(consulta, usarCuringa) {
@@ -338,6 +365,13 @@
             elementoHolo.style.setProperty("--mx", "50%");
             elementoHolo.style.setProperty("--my", "50%");
         });
+    }
+
+    if (botaoStripAnterior && botaoStripProximo) {
+        botaoStripAnterior.addEventListener("click", () => rolarFaixa(-1));
+        botaoStripProximo.addEventListener("click", () => rolarFaixa(1));
+        faixaCartas.addEventListener("scroll", atualizarEstadoNavegacao);
+        window.addEventListener("resize", atualizarEstadoNavegacao);
     }
 
     botaoBuscar.addEventListener("click", () => buscarCartas(campoEntrada.value));
