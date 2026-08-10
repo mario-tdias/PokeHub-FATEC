@@ -50,9 +50,11 @@
       <canvas id="pokedex3d-canvas"></canvas>
       
       <div id="pokedex3d-overlay" class="pokedex3d-overlay">
+        <button id="resetViewBtn" class="btn-reset-3d" title="Voltar para Pokédex 3D">
+          <span class="icon">↺</span> Voltar para Visão 3D
+        </button>
+        
         <div class="viewport-container">
-          <button id="resetViewBtn" class="btn-reset-3d" title="Voltar para Pokédex 3D">↺ Visão 3D</button>
-          
           <div id="pokedex-wrapper" class="pokedex-wrapper" data-name="Pokedex">
             
             <!-- Corpo Pad -->
@@ -302,9 +304,11 @@
       const designW = 1079;
       const designH = 1287;
       const container = document.getElementById('pokedex3d-container');
+      const header = document.getElementById('header');
+      const headerHeight = header ? header.offsetHeight : 80;
       const vw = container ? container.clientWidth : window.innerWidth;
-      const vh = container ? container.clientHeight : window.innerHeight;
-      const scale = Math.min(vw / designW, vh / designH) * 0.95;
+      const vh = (container ? container.clientHeight : window.innerHeight) - headerHeight;
+      const scale = Math.min(vw / designW, vh / designH) * 0.76;
       const wrapper = document.getElementById('pokedex-wrapper');
       if (wrapper) {
         wrapper.style.transform = `scale(${scale})`;
