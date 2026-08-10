@@ -12,11 +12,17 @@
   --ink: #142033;
 }
 
+html, body {
+  overflow: hidden;
+  height: 100vh;
+}
+
 .pokedex3d-container {
   position: relative;
   width: 100%;
   max-width: 900px;
-  min-height: 720px;
+  height: 100%;
+  max-height: calc(100vh - var(--header-h, 72px));
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -46,7 +52,7 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.9);
   width: 100%;
-  max-width: 560px;
+  max-width: 520px;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.35s ease, transform 0.35s ease;
@@ -62,13 +68,18 @@
 .ds-pokedex-frame {
   position: relative;
   width: 100%;
-  max-width: 560px;
+  max-width: 520px;
+  max-height: calc(100vh - var(--header-h, 72px) - 20px);
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin: 0 auto;
 }
 
 .ds-bg-image {
   width: 100%;
+  max-height: calc(100vh - var(--header-h, 72px) - 20px);
+  object-fit: contain;
   height: auto;
   display: block;
   filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.85));
@@ -76,19 +87,20 @@
 
 .btn-reset-3d {
   position: absolute;
-  top: -45px;
-  right: 0;
-  background: rgba(15, 23, 42, 0.9);
+  top: 12px;
+  right: 12px;
+  background: rgba(15, 23, 42, 0.92);
   border: 1px solid rgba(255, 255, 255, 0.35);
   color: #ffffff;
-  padding: 8px 18px;
+  padding: 6px 14px;
   border-radius: 999px;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   cursor: pointer;
-  z-index: 30;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+  z-index: 50;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
   transition: background 0.2s ease, transform 0.15s ease;
+  backdrop-filter: blur(4px);
 }
 
 .btn-reset-3d:hover {
@@ -472,11 +484,14 @@
 }
 
 .pokedex-page {
-  min-height: 100vh;
-  padding: calc(var(--header-h) + 2rem) 1.25rem 2rem;
+  height: calc(100vh - var(--header-h, 72px));
+  margin-top: var(--header-h, 72px);
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+  position: relative;
 }
 
 .type-pill{
