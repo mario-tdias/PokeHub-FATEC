@@ -60,7 +60,7 @@ function mostrarPokemon(pokemon) {
     pokemon.sprites.front_default;
 
   const tipos = pokemon.types
-    .map(tipo => `<span class="type-text">${TIPOS_PT[tipo.type.name] || tipo.type.name}</span>`)
+    .map(tipo => `<span class="type-pill">${TIPOS_PT[tipo.type.name] || tipo.type.name}</span>`)
     .join("");
 
   const altura = (pokemon.height / 10).toFixed(1);
@@ -68,34 +68,24 @@ function mostrarPokemon(pokemon) {
   const habilidade = HABILIDADES_PT[pokemon.abilities[0]?.ability?.name] || pokemon.abilities[0]?.ability?.name || "Desconhecida";
 
   tela.innerHTML = `
-    <!-- Cabeçalho com Número/Nome na esquerda e Tipagem na direita -->
-    <div class="ds-poke-header">
-      <div class="poke-title-group">
-        <span class="poke-number">Nº ${numero}</span>
-        <h2 class="poke-name">${pokemon.name}</h2>
-      </div>
-      <div class="poke-types-group">
-        ${tipos}
-      </div>
-    </div>
-
-    <!-- Área principal com a imagem e estatísticas -->
-    <div class="ds-poke-body">
+    <div class="ds-poke-layout">
+      <!-- Quadro na tela superior (esquerda) -->
       <div class="ds-quadro-box">
-        <img src="${imagemPokemon}" alt="${pokemon.name}" />
+        <div class="sprite-wrap">
+          <img src="${imagemPokemon}" alt="${pokemon.name}">
+        </div>
       </div>
+      
+      <!-- Informações Empilhadas à Direita -->
       <div class="ds-info-side">
-        <div class="ds-info-row">
-          <strong>ALTURA</strong>
-          <span>${altura} m</span>
-        </div>
-        <div class="ds-info-row">
-          <strong>PESO</strong>
-          <span>${peso} kg</span>
-        </div>
-        <div class="ds-info-row">
-          <strong>HABILIDADE</strong>
-          <span title="${habilidade}">${habilidade}</span>
+        <div class="poke-number">Nº ${numero}</div>
+        <div class="poke-name">${pokemon.name}</div>
+        <div class="poke-types">${tipos}</div>
+        
+        <div class="ds-info-stack">
+          <div class="ds-info-row"><strong>Altura</strong> <span>${altura} m</span></div>
+          <div class="ds-info-row"><strong>Peso</strong> <span>${peso} kg</span></div>
+          <div class="ds-info-row"><strong>Habilidade</strong> <span>${habilidade}</span></div>
         </div>
       </div>
     </div>
