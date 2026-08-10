@@ -26,55 +26,51 @@
     renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    if (THREE.sRGBEncoding) {
+      renderer.outputEncoding = THREE.sRGBEncoding;
+    }
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.75);
+    // Lighting setup for GLTF PBR model
+    const ambientLight = new THREE.AmbientLight(0xffffff, 2.0);
     scene.add(ambientLight);
 
-    const dirLight = new THREE.DirectionalLight(0xffffff, 1.0);
-    dirLight.position.set(5, 8, 5);
-    scene.add(dirLight);
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x555555, 1.6);
+    hemiLight.position.set(0, 20, 0);
+    scene.add(hemiLight);
+
+    const mainLight = new THREE.DirectionalLight(0xffffff, 3.0);
+    mainLight.position.set(5, 12, 8);
+    scene.add(mainLight);
+
+    const fillLight = new THREE.DirectionalLight(0xffffff, 2.0);
+    fillLight.position.set(-6, 6, 6);
+    scene.add(fillLight);
+
+    const backLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    backLight.position.set(0, 6, -8);
+    scene.add(backLight);
 
     pokedexGroup = new THREE.Group();
     scene.add(pokedexGroup);
 
-    createFallbackModel();
     loadGLTFModel();
 
     addEventListeners();
     animate();
   }
 
-  function createFallbackModel() {
-    const bodyGeo = new THREE.BoxGeometry(2.2, 3.2, 0.4);
-    const bodyMat = new THREE.MeshStandardMaterial({ color: 0xd32f2f, roughness: 0.3, metalness: 0.2 });
-    const body = new THREE.Mesh(bodyGeo, bodyMat);
-    pokedexGroup.add(body);
-
-    const screenFrameGeo = new THREE.BoxGeometry(1.6, 1.6, 0.05);
-    const screenFrameMat = new THREE.MeshStandardMaterial({ color: 0x141820 });
-    const screenFrame = new THREE.Mesh(screenFrameGeo, screenFrameMat);
-    screenFrame.position.set(0, 0.3, 0.2);
-    pokedexGroup.add(screenFrame);
-
-    const lensGeo = new THREE.SphereGeometry(0.18, 16, 16);
-    const lensMat = new THREE.MeshStandardMaterial({ color: 0x4aa8e0, roughness: 0.1, metalness: 0.8 });
-    const lens = new THREE.Mesh(lensGeo, lensMat);
-    lens.position.set(-0.7, 1.3, 0.22);
-    pokedexGroup.add(lens);
-  }
-
   function loadGLTFModel() {
     if (typeof THREE.GLTFLoader === "undefined") return;
     const loader = new THREE.GLTFLoader();
     const candidatePaths = [
+      "../assets/models/pokedex.glb",
       "../assets/base_basic_pbr.glb",
-      "../assets/models/base_basic_pbr.glb",
-      "../assets/models/pokedex.glb"
+      "../assets/models/base_basic_pbr.glb"
     ];
 
     function tryLoad(index) {
       if (index >= candidatePaths.length) {
-        console.log("Nenhum modelo .glb encontrado nos caminhos. Usando Pokédex 3D de fallback.");
+        console.log("Nenhum modelo .glb encontrado nos caminhos.");
         return;
       }
 
@@ -90,6 +86,12 @@
           }
 
           const model = gltf.scene;
+
+          model.traverse((child) => {
+            if (child.isMesh && child.material) {
+              child.material.needsUpdate = true;
+            }
+          });
 
           // Auto center and auto scale model
           const box = new THREE.Box3().setFromObject(model);
