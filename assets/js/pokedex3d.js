@@ -102,10 +102,10 @@
     if (typeof THREE.GLTFLoader === "undefined") return;
     const loader = new THREE.GLTFLoader();
     const candidatePaths = [
-      "../assets/models/dex-3d/base_basic_shaded.glb",
       "../assets/models/dex-3d/base_basic_pbr.glb",
+      "../assets/base_basic_pbr.glb",
       "../assets/models/pokedex.glb",
-      "../assets/base_basic_pbr.glb"
+      "../assets/models/dex-3d/base_basic_shaded.glb"
     ];
 
     function tryLoad(index) {
