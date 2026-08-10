@@ -46,7 +46,7 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.9);
   width: 100%;
-  max-width: 540px;
+  max-width: 560px;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.35s ease, transform 0.35s ease;
@@ -62,7 +62,7 @@
 .ds-pokedex-frame {
   position: relative;
   width: 100%;
-  max-width: 540px;
+  max-width: 560px;
   display: flex;
   justify-content: center;
 }
@@ -71,23 +71,23 @@
   width: 100%;
   height: auto;
   display: block;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.85));
+  filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.85));
 }
 
 .btn-reset-3d {
   position: absolute;
-  top: 14px;
-  right: 18px;
-  background: rgba(0, 0, 0, 0.65);
+  top: -45px;
+  right: 0;
+  background: rgba(15, 23, 42, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.35);
   color: #ffffff;
-  padding: 6px 14px;
+  padding: 8px 18px;
   border-radius: 999px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   cursor: pointer;
   z-index: 30;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
   transition: background 0.2s ease, transform 0.15s ease;
 }
 
@@ -115,10 +115,10 @@
 /* Tela Superior (Top Screen inside pokedex.png) */
 .ds-top-screen {
   position: absolute;
-  top: 6.5%;
-  left: 34%;
-  width: 56%;
-  height: 39%;
+  top: 5.5%;
+  left: 33.5%;
+  width: 57.5%;
+  height: 40.5%;
   display: flex;
   flex-direction: column;
   padding: 8px;
@@ -255,10 +255,10 @@
 /* Tela Inferior (Bottom Screen inside pokedex.png) */
 .ds-bottom-screen {
   position: absolute;
-  top: 54.5%;
-  left: 34%;
-  width: 56%;
-  height: 38%;
+  top: 53.5%;
+  left: 33.5%;
+  width: 57.5%;
+  height: 40.5%;
   display: flex;
   align-items: center;
   justify-content: center;
