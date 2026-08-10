@@ -66,23 +66,58 @@
   function loadGLTFModel() {
     if (typeof THREE.GLTFLoader === "undefined") return;
     const loader = new THREE.GLTFLoader();
-    loader.load(
-      "../assets/models/pokedex.glb",
-      (gltf) => {
-        if (typeof pokedexGroup.clear === "function") {
-          pokedexGroup.clear();
-        } else {
-          while (pokedexGroup.children.length > 0) {
-            pokedexGroup.remove(pokedexGroup.children[0]);
-          }
-        }
-        pokedexGroup.add(gltf.scene);
-      },
-      undefined,
-      (err) => {
-        console.log("Modelo .glb não encontrado. Usando Pokédex 3D de fallback.");
+    const candidatePaths = [
+      "../assets/base_basic_pbr.glb",
+      "../assets/models/base_basic_pbr.glb",
+      "../assets/models/pokedex.glb"
+    ];
+
+    function tryLoad(index) {
+      if (index >= candidatePaths.length) {
+        console.log("Nenhum modelo .glb encontrado nos caminhos. Usando Pokédex 3D de fallback.");
+        return;
       }
-    );
+
+      loader.load(
+        candidatePaths[index],
+        (gltf) => {
+          if (typeof pokedexGroup.clear === "function") {
+            pokedexGroup.clear();
+          } else {
+            while (pokedexGroup.children.length > 0) {
+              pokedexGroup.remove(pokedexGroup.children[0]);
+            }
+          }
+
+          const model = gltf.scene;
+
+          // Auto center and auto scale model
+          const box = new THREE.Box3().setFromObject(model);
+          const center = box.getCenter(new THREE.Vector3());
+          const size = box.getSize(new THREE.Vector3());
+
+          model.position.x -= center.x;
+          model.position.y -= center.y;
+          model.position.z -= center.z;
+
+          const maxDimension = Math.max(size.x, size.y, size.z);
+          if (maxDimension > 0) {
+            const desiredScale = 3.2 / maxDimension;
+            model.scale.set(desiredScale, desiredScale, desiredScale);
+          }
+
+          pokedexGroup.add(model);
+          console.log("Modelo 3D GLTF carregado com sucesso:", candidatePaths[index]);
+        },
+        undefined,
+        (err) => {
+          console.warn("Falha ao carregar:", candidatePaths[index], err);
+          tryLoad(index + 1);
+        }
+      );
+    }
+
+    tryLoad(0);
   }
 
   function addEventListeners() {
