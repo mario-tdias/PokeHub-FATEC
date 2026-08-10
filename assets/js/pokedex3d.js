@@ -29,43 +29,83 @@
     if (THREE.sRGBEncoding) {
       renderer.outputEncoding = THREE.sRGBEncoding;
     }
+    if (THREE.ACESFilmicToneMapping) {
+      renderer.toneMapping = THREE.ACESFilmicToneMapping;
+      renderer.toneMappingExposure = 1.15;
+    }
 
-    // Lighting setup for GLTF PBR model
-    const ambientLight = new THREE.AmbientLight(0xffffff, 2.0);
+    // High quality studio lighting setup for GLTF models
+    const ambientLight = new THREE.AmbientLight(0xffffff, 2.2);
     scene.add(ambientLight);
 
-    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x555555, 1.6);
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x333344, 1.5);
     hemiLight.position.set(0, 20, 0);
     scene.add(hemiLight);
 
-    const mainLight = new THREE.DirectionalLight(0xffffff, 3.0);
+    const mainLight = new THREE.DirectionalLight(0xffffff, 3.2);
     mainLight.position.set(5, 12, 8);
     scene.add(mainLight);
 
-    const fillLight = new THREE.DirectionalLight(0xffffff, 2.0);
+    const fillLight = new THREE.DirectionalLight(0x90c0ff, 2.0);
     fillLight.position.set(-6, 6, 6);
     scene.add(fillLight);
 
-    const backLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    const backLight = new THREE.DirectionalLight(0xffd54f, 1.5);
     backLight.position.set(0, 6, -8);
     scene.add(backLight);
 
     pokedexGroup = new THREE.Group();
     scene.add(pokedexGroup);
 
+    loadEmissiveTexture();
     loadGLTFModel();
 
     addEventListeners();
     animate();
   }
 
+  let emissiveTextureMap = null;
+
+  function loadEmissiveTexture() {
+    if (typeof THREE.TextureLoader === "undefined") return;
+    const textureLoader = new THREE.TextureLoader();
+    textureLoader.load(
+      "../assets/models/dex-3d/texture_emissive_00.png",
+      (texture) => {
+        texture.flipY = false;
+        if (THREE.sRGBEncoding) {
+          texture.encoding = THREE.sRGBEncoding;
+        }
+        emissiveTextureMap = texture;
+        applyEmissiveMap();
+      },
+      undefined,
+      (err) => {
+        console.warn("Textura emissiva dex-3d não carregada:", err);
+      }
+    );
+  }
+
+  function applyEmissiveMap() {
+    if (!pokedexGroup || !emissiveTextureMap) return;
+    pokedexGroup.traverse((child) => {
+      if (child.isMesh && child.material) {
+        child.material.emissiveMap = emissiveTextureMap;
+        child.material.emissive = new THREE.Color(0xffffff);
+        child.material.emissiveIntensity = 1.0;
+        child.material.needsUpdate = true;
+      }
+    });
+  }
+
   function loadGLTFModel() {
     if (typeof THREE.GLTFLoader === "undefined") return;
     const loader = new THREE.GLTFLoader();
     const candidatePaths = [
+      "../assets/models/dex-3d/base_basic_shaded.glb",
+      "../assets/models/dex-3d/base_basic_pbr.glb",
       "../assets/models/pokedex.glb",
-      "../assets/base_basic_pbr.glb",
-      "../assets/models/base_basic_pbr.glb"
+      "../assets/base_basic_pbr.glb"
     ];
 
     function tryLoad(index) {
@@ -109,6 +149,7 @@
           }
 
           pokedexGroup.add(model);
+          applyEmissiveMap();
           console.log("Modelo 3D GLTF carregado com sucesso:", candidatePaths[index]);
         },
         undefined,
