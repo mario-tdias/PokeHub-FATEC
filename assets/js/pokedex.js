@@ -1,6 +1,7 @@
 const campoPokemon = document.getElementById("pokeInput");
 const botaoBuscar = document.getElementById("searchBtn");
 const tela = document.getElementById("screen");
+const spriteBox = document.getElementById("sprite-box");
 const lente = document.getElementById("lens");
 
 function alterarLente(estado) {
@@ -10,31 +11,40 @@ function alterarLente(estado) {
 }
 
 function mostrarTelaInicial() {
-  tela.innerHTML = `
-    <div class="ds-placeholder">
-      <span class="big">◌</span>
-      Digite o nome de um pokémon na tela inferior e pressione buscar
-    </div>
-  `;
+  if (spriteBox) spriteBox.innerHTML = "";
+  if (tela) {
+    tela.innerHTML = `
+      <div class="ds-placeholder">
+        <span class="big">◌</span>
+        Digite o nome de um pokémon na tela inferior e pressione buscar
+      </div>
+    `;
+  }
 }
 
 function mostrarCarregando() {
-  tela.innerHTML = `
-    <div class="ds-placeholder">
-      <span class="big">◐</span>
-      Buscando na PokéAPI...
-    </div>
-  `;
+  if (spriteBox) spriteBox.innerHTML = "";
+  if (tela) {
+    tela.innerHTML = `
+      <div class="ds-placeholder">
+        <span class="big">◐</span>
+        Buscando na PokéAPI...
+      </div>
+    `;
+  }
 }
 
 function mostrarErro(nomePokemon) {
-  tela.innerHTML = `
-    <div class="error-msg">
-      <span class="big">✕</span>
-      Pokémon "${nomePokemon}" não encontrado.<br>
-      Confira o nome e tente novamente.
-    </div>
-  `;
+  if (spriteBox) spriteBox.innerHTML = "";
+  if (tela) {
+    tela.innerHTML = `
+      <div class="error-msg">
+        <span class="big">✕</span>
+        Pokémon "${nomePokemon}" não encontrado.<br>
+        Confira o nome e tente novamente.
+      </div>
+    `;
+  }
 }
 
 const TIPOS_PT = {
@@ -67,16 +77,14 @@ function mostrarPokemon(pokemon) {
   const peso = (pokemon.weight / 10).toFixed(1);
   const habilidade = HABILIDADES_PT[pokemon.abilities[0]?.ability?.name] || pokemon.abilities[0]?.ability?.name || "Desconhecida";
 
-  tela.innerHTML = `
-    <div class="ds-poke-layout">
-      <!-- Quadro na tela superior (esquerda) -->
-      <div class="ds-quadro-box">
-        <div class="sprite-wrap">
-          <img src="${imagemPokemon}" alt="${pokemon.name}">
-        </div>
-      </div>
-      
-      <!-- Informações Empilhadas à Direita -->
+  if (spriteBox) {
+    spriteBox.innerHTML = `
+      <img src="${imagemPokemon}" alt="${pokemon.name}">
+    `;
+  }
+
+  if (tela) {
+    tela.innerHTML = `
       <div class="ds-info-side">
         <div class="poke-number">Nº ${numero}</div>
         <div class="poke-name">${pokemon.name}</div>
@@ -88,11 +96,12 @@ function mostrarPokemon(pokemon) {
           <div class="ds-info-row"><strong>Habilidade</strong> <span>${habilidade}</span></div>
         </div>
       </div>
-    </div>
-  `;
+    `;
+  }
 }
 
 async function buscarPokemon() {
+  if (!campoPokemon) return;
   const pesquisa = campoPokemon.value.trim().toLowerCase();
 
   if (window.Pokedex3D && !window.Pokedex3D.isZoomed()) {
@@ -127,5 +136,3 @@ if (campoPokemon) {
     if (e.key === "Enter") buscarPokemon();
   });
 }
-
-

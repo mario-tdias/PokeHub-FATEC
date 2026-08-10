@@ -15,8 +15,8 @@
 .pokedex3d-container {
   position: relative;
   width: 100%;
-  max-width: 900px;
-  min-height: 720px;
+  max-width: 1000px;
+  min-height: 760px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -46,11 +46,14 @@
   left: 50%;
   transform: translate(-50%, -50%) scale(0.9);
   width: 100%;
-  max-width: 560px;
+  height: 100%;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.35s ease, transform 0.35s ease;
   z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pokedex3d-container.zoomed .pokedex3d-overlay {
@@ -59,25 +62,10 @@
   transform: translate(-50%, -50%) scale(1);
 }
 
-.ds-pokedex-frame {
-  position: relative;
-  width: 100%;
-  max-width: 560px;
-  display: flex;
-  justify-content: center;
-}
-
-.ds-bg-image {
-  width: 100%;
-  height: auto;
-  display: block;
-  filter: drop-shadow(0 25px 45px rgba(0, 0, 0, 0.85));
-}
-
 .btn-reset-3d {
   position: absolute;
-  top: -45px;
-  right: 0;
+  top: 20px;
+  right: 40px;
   background: rgba(15, 23, 42, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.35);
   color: #ffffff;
@@ -86,7 +74,7 @@
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
-  z-index: 30;
+  z-index: 50;
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
   transition: background 0.2s ease, transform 0.15s ease;
 }
@@ -102,7 +90,7 @@
   left: 50%;
   transform: translateX(-50%);
   font-size: 11px;
-  color: var(--text-muted);
+  color: var(--text-muted, #aaa);
   letter-spacing: 1px;
   pointer-events: none;
   transition: opacity 0.3s ease;
@@ -112,100 +100,348 @@
   opacity: 0;
 }
 
-/* Tela Superior (Top Screen inside pokedex.png) */
-.ds-top-screen {
-  position: absolute;
-  top: 7.1%;
-  left: 37.7%;
-  width: 42.7%;
-  height: 35.7%;
-  display: flex;
-  flex-direction: column;
-  padding: 6px;
-  box-sizing: border-box;
-  overflow: hidden;
-}
-
-.ds-screen-content {
+/* Container de Viewport Centralizado */
+.viewport-container {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: visible;
+}
+
+/* Wrapper com Dimensões Exatas do Design (1079px x 1287px) */
+.pokedex-wrapper {
+  width: 1079px;
+  height: 1287px;
+  position: relative;
+  flex-shrink: 0;
+  transform-origin: center center;
+  filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.7));
+}
+
+.svg-full {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ==========================================================================
+   1. CORPO PAD
+   ========================================================================== */
+.corpo-pad {
+  position: absolute;
+  height: 643px;
+  left: 268px;
+  top: 644px;
+  width: 811px;
+}
+
+.corpo-pad-svg-wrap {
+  position: absolute;
+  top: -100.16%;
+  right: 0;
+  bottom: 0;
+  left: -33.05%;
+}
+
+/* ==========================================================================
+   2. TECLADO PAD
+   ========================================================================== */
+.teclado-pad {
+  position: absolute;
+  height: 460px;
+  left: 405px;
+  top: 736px;
+  width: 461px;
+}
+
+.outer-keypad {
+  position: absolute;
+  height: 447px;
+  left: -98px;
+  top: 7px;
+  width: 660px;
+  border-radius: 25px 50px 20px 25px;
+  pointer-events: none;
+}
+
+.outer-keypad-bg {
+  position: absolute;
+  inset: 0;
+  background-color: #0a0a0a;
+  border-radius: 25px 50px 20px 25px;
+}
+
+.outer-keypad-shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0px -10px 4px 0px rgba(0, 0, 0, 0.4), inset 15px 0px 4px 0px #000000;
+}
+
+.keypad-middle {
+  position: absolute;
+  left: -31px;
+  top: -32px;
+  width: 527px;
+  height: 527px;
+  border-radius: 30px;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+.keypad-middle-gradient {
+  position: absolute;
+  inset: 0;
+  border-radius: 30px;
+  background-image: linear-gradient(169.26944320468147deg, rgb(217, 217, 217) 21.237%, rgb(115, 115, 115) 90.78%);
+}
+
+.keypad-middle-shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0px 4px 4px 0px rgba(255, 255, 255, 0.4);
+}
+
+.keypad-container {
+  position: absolute;
+  height: 460px;
+  left: 0;
+  top: 0;
+  width: 461px;
+  border-radius: 30px;
+  pointer-events: none;
+}
+
+.keypad-container-bg {
+  position: absolute;
+  inset: 0;
+  background-color: #264d64;
+  border-radius: 30px;
+}
+
+.keypad-container-shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0px 0px 10px 0px #12b0f4;
+}
+
+.teclado-pad .ds-touch-controls {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 35px;
+  z-index: 10;
+}
+
+.controls-label {
+  font-size: 14px;
+  letter-spacing: 3px;
+  color: #6bffb0;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  width: 90%;
+  max-width: 360px;
+}
+
+.controls input {
+  flex: 1;
+  background: rgba(10, 16, 26, 0.85);
+  border: 2px solid #12b0f4;
+  border-radius: 8px;
+  padding: 10px 16px;
+  color: #ffffff;
+  font-size: 15px;
+  font-family: 'Space Mono', monospace;
+  outline: none;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.controls input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.controls button {
+  background: #ffcf4a;
+  border: none;
+  border-radius: 8px;
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.controls button:hover {
+  background: #ffe082;
+  transform: scale(1.05);
+}
+
+.controls button svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* ==========================================================================
+   3. TELA PAD
+   ========================================================================== */
+.tela-pad {
+  position: absolute;
+  height: 460px;
+  left: 407px;
+  top: 91px;
+  width: 461px;
+}
+
+.tela-outer {
+  position: absolute;
+  height: 446px;
+  left: -102px;
+  top: 8px;
+  width: 660px;
+  pointer-events: none;
+  border-radius: 25px 50px 20px 25px;
+}
+
+.tela-outer-bg {
+  position: absolute;
+  inset: 0;
+  background-color: #0a0a0a;
+  border-radius: 25px 50px 20px 25px;
+}
+
+.tela-outer-shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0px 10px 4px 0px #000000, inset 15px 0px 4px 0px #000000;
+}
+
+.tela-middle {
+  position: absolute;
+  height: 526px;
+  left: -33px;
+  top: -33px;
+  width: 527px;
+  pointer-events: none;
+  border-radius: 30px;
+}
+
+.tela-middle-gradient {
+  position: absolute;
+  inset: 0;
+  border-radius: 30px;
+  background-image: linear-gradient(169.2893333054992deg, rgb(217, 217, 217) 21.237%, rgb(115, 115, 115) 90.78%);
+}
+
+.tela-middle-shadow1 {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0px 4px 4px 0px rgba(255, 255, 255, 0.4);
+}
+
+.tela-middle-shadow2 {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+  box-shadow: 0px 0px 6px 0px rgba(0, 0, 0, 0.4);
+}
+
+.tela-inner {
+  position: absolute;
+  height: 460px;
+  left: 0;
+  top: 0;
+  width: 461px;
+  pointer-events: none;
+  border-radius: 30px;
+}
+
+.tela-inner-bg {
+  position: absolute;
+  inset: 0;
+  background-color: #264d65;
+  border-radius: 30px;
+}
+
+.tela-inner-shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0px 0px 6px 0px rgba(246, 227, 12, 0.4);
+}
+
+.tela-inner-border {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(255, 253, 253, 0.2);
+  border-radius: 30px;
+}
+
+.tela-text-area {
+  position: absolute;
+  left: 235px;
+  top: 30px;
+  right: 25px;
+  bottom: 30px;
+  color: #64e878;
+  font-family: 'Space Mono', monospace;
+  z-index: 10;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
 .ds-placeholder {
   color: #8bbdd9;
-  font-size: 10.5px;
+  font-size: 13px;
   text-align: center;
-  line-height: 1.4;
-  padding: 8px;
+  line-height: 1.5;
+  padding: 10px;
 }
 
 .ds-placeholder .big {
-  font-size: 28px;
+  font-size: 32px;
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 
-/* Layout do Pokémon na Tela Superior */
-.ds-poke-layout {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  gap: 6px;
-  align-items: center;
-}
-
-/* Quadro Esquerda (Quadro de Imagem no pokedex.png) */
-.ds-quadro-box {
-  width: 43%;
-  height: 85%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.ds-quadro-box .sprite-wrap {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.ds-quadro-box img {
-  max-width: 90%;
-  max-height: 90%;
-  object-fit: contain;
-  image-rendering: pixelated;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
-}
-
-/* Informações Empilhadas à Direita */
 .ds-info-side {
-  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  gap: 2px;
+  gap: 4px;
   color: #fff;
-  overflow: hidden;
 }
 
 .ds-info-side .poke-number {
-  font-size: 10px;
+  font-size: 12px;
   color: #6bffb0;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   font-weight: 700;
 }
 
 .ds-info-side .poke-name {
   font-family: 'Baloo 2', sans-serif;
-  font-size: 15px;
+  font-size: 20px;
   font-weight: 800;
   color: #ffffff;
   text-transform: capitalize;
@@ -214,37 +450,41 @@
 
 .ds-info-side .poke-types {
   display: flex;
-  gap: 3px;
-  margin: 1px 0;
+  gap: 4px;
+  margin: 2px 0;
 }
 
 .ds-info-side .type-pill {
-  font-size: 8.5px;
-  padding: 1.5px 5px;
-  letter-spacing: 0.8px;
+  font-size: 10px;
+  padding: 2px 8px;
+  background: rgba(18, 176, 244, 0.3);
+  border: 1px solid #12b0f4;
+  border-radius: 4px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
 }
 
 .ds-info-stack {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  margin-top: 2px;
+  gap: 4px;
+  margin-top: 4px;
 }
 
 .ds-info-row {
   display: flex;
   justify-content: space-between;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.45);
   border: 1px solid rgba(107, 255, 176, 0.25);
-  padding: 2.5px 5px;
+  padding: 4px 8px;
   border-radius: 4px;
-  font-size: 9px;
+  font-size: 11px;
 }
 
 .ds-info-row strong {
   color: #6bffb0;
   text-transform: uppercase;
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.5px;
 }
 
@@ -252,242 +492,113 @@
   color: #eaf6ff;
 }
 
-/* Tela Inferior (Bottom Screen inside pokedex.png) */
-.ds-bottom-screen {
+/* ==========================================================================
+   4. BOTOES PAD & BUTTON
+   ========================================================================== */
+.botoes-pad {
   position: absolute;
-  top: 57.2%;
-  left: 37.5%;
-  width: 42.7%;
-  height: 35.7%;
+  height: 26px;
+  left: 925px;
+  top: 1112px;
+  width: 27px;
+  pointer-events: none;
+}
+
+.botoes-pad-wrap {
+  position: absolute;
+  top: -257.69%;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.button-pad {
+  position: absolute;
+  height: 26px;
+  left: 925px;
+  top: 308px;
+  width: 27px;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   5. LUZ
+   ========================================================================== */
+.luz-pad {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  left: 134px;
+  top: 375px;
+  pointer-events: none;
+}
+
+.luz-pad-wrap {
+  position: absolute;
+  top: -377.5%;
+  right: -197.5%;
+  bottom: 0;
+  left: -197.5%;
+}
+
+/* ==========================================================================
+   6. MOLDURA POKEMON
+   ========================================================================== */
+.moldura-pokemon {
+  position: absolute;
+  height: 198px;
+  left: 437px;
+  top: 218px;
+  width: 197px;
+  z-index: 10;
+}
+
+.screen-base {
+  position: absolute;
+  height: 198px;
+  left: 0;
+  top: 0;
+  width: 197px;
+  background-color: #d9d9d9;
+  border-radius: 15px;
+}
+
+.screen-frame-border {
+  position: absolute;
+  inset: -5px;
+  pointer-events: none;
+  border: 5px solid #fff58d;
+  border-radius: 20px;
+  box-shadow: 0px 0px 4px 0px #000000;
+}
+
+.screen-overlay {
+  position: absolute;
+  height: 198px;
+  left: 0;
+  top: 0;
+  width: 197px;
+  background-color: rgba(76, 70, 70, 0.2);
+  border-radius: 15px;
+  box-shadow: 0px 0px 4px 0px #000000;
+  pointer-events: none;
+}
+
+.ds-quadro-content {
+  position: absolute;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px;
-  box-sizing: border-box;
+  border-radius: 15px;
+  overflow: hidden;
+  z-index: 2;
 }
 
-.ds-touch-controls {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
-}
-
-.controls-label {
-  font-size: 9.5px;
-  letter-spacing: 2px;
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.screen-frame{
-  background: var(--ink);
-  border-radius: 12px;
-  padding: 10px;
-  box-shadow: inset 0 0 0 3px rgba(0,0,0,0.35);
-}
-
-.screen{
-  background:
-    linear-gradient(rgba(255,255,255,0.03) 50%, rgba(0,0,0,0.08) 50%),
-    linear-gradient(160deg, var(--screen-bg) 0%, var(--screen-bg-deep) 100%);
-  background-size: 100% 3px, 100% 100%;
-  border-radius: 8px;
-  min-height: 300px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding: 22px 18px;
-  text-align:center;
-  gap: 10px;
-  position:relative;
-  overflow:hidden;
-}
-
-.screen-label{
-  position:absolute;
-  top:10px; left:12px;
-  font-size: 10px;
-  letter-spacing: 2px;
-  color: var(--phosphor-dim);
-  text-transform:uppercase;
-}
-
-.placeholder{
-  color: var(--phosphor-dim);
-  font-size: 13px;
-  line-height:1.7;
-  letter-spacing: 0.5px;
-}
-.placeholder .big{
-  font-size: 40px;
-  display:block;
-  margin-bottom: 6px;
-  opacity: 0.7;
-}
-
-.sprite-wrap{
-  width: 140px; height: 140px;
-  display:flex; align-items:center; justify-content:center;
-  background: radial-gradient(circle, rgba(107,255,176,0.12) 0%, transparent 70%);
+.ds-quadro-content img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
   image-rendering: pixelated;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.4));
 }
-.sprite-wrap img{
-  width: 128px; height: 128px;
-  image-rendering: pixelated;
-  filter: drop-shadow(0 6px 10px rgba(0,0,0,0.5));
-}
-
-.poke-number{
-  color: var(--phosphor);
-  font-size: 13px;
-  letter-spacing: 3px;
-  opacity: 0.9;
-}
-
-.poke-name{
-  font-family: 'Baloo 2', sans-serif;
-  font-weight: 700;
-  font-size: 26px;
-  color: var(--cream);
-  text-transform: capitalize;
-  text-shadow: 0 0 12px rgba(107,255,176,0.35);
-}
-
-.poke-types{
-  display:flex; gap:8px; flex-wrap:wrap; justify-content:center;
-  margin-top: 2px;
-}
-
-.poke-info{
-
-    width:100%;
-    margin-top:18px;
-
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-
-    gap:12px;
-
-}
-
-.poke-info div{
-
-    background:rgba(107,255,176,.05);
-
-    border:1px solid rgba(107,255,176,.2);
-
-    border-radius:8px;
-
-    padding:10px;
-
-    color:white;
-
-    font-size:12px;
-
-    line-height:1.5;
-
-}
-
-.poke-info strong{
-
-    color:#6bffb0;
-
-    font-size:11px;
-
-    text-transform:uppercase;
-
-    letter-spacing:1px;
-
-}
-
-.pokedex-page {
-  min-height: 100vh;
-  padding: calc(var(--header-h) + 2rem) 1.25rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.type-pill{
-  font-size: 10px;
-  letter-spacing: 1.5px;
-  text-transform:uppercase;
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--phosphor-dim);
-  color: var(--phosphor);
-  background: rgba(107,255,176,0.06);
-}
-
-.error-msg{
-  color: #ff8b7d;
-  font-size: 13px;
-  line-height:1.6;
-  letter-spacing: 0.5px;
-  max-width: 260px;
-}
-.error-msg .big{
-  font-size: 34px;
-  display:block;
-  margin-bottom: 6px;
-}
-
-.controls{
-  margin-top: 16px;
-  display:flex;
-  gap: 8px;
-  align-items:center;
-}
-
-.controls input{
-  flex:1;
-  background: var(--screen-bg-deep);
-  border: 2px solid rgba(0,0,0,0.4);
-  border-radius: 8px;
-  padding: 12px 14px;
-  color: var(--cream);
-  font-family: 'Space Mono', monospace;
-  font-size: 14px;
-  outline: none;
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
-}
-.controls input::placeholder{ color: #5a6c8a; }
-.controls input:focus{
-  border-color: var(--phosphor-dim);
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5), 0 0 0 2px rgba(107,255,176,0.25);
-}
-
-.controls button{
-  flex-shrink:0;
-  background: linear-gradient(160deg, #ffdd6e, var(--amber) 60%, #c98f1a);
-  border: none;
-  border-radius: 8px;
-  width: 46px; height: 46px;
-  display:flex; align-items:center; justify-content:center;
-  cursor:pointer;
-  box-shadow: 0 3px 0 #8a6410, inset 0 1px 0 rgba(255,255,255,0.5);
-  transition: transform .08s ease, box-shadow .08s ease;
-}
-.controls button:active{
-  transform: translateY(2px);
-  box-shadow: 0 1px 0 #8a6410, inset 0 1px 0 rgba(255,255,255,0.5);
-}
-.controls button svg{ width:18px; height:18px; }
-
-.hint{
-  margin-top: 10px;
-  text-align:center;
-  font-size: 10px;
-  letter-spacing: 1.5px;
-  color: rgba(255,255,255,0.55);
-  text-transform: uppercase;
-}
-
-@media (prefers-reduced-motion: reduce){
-  .lens.state-loading{ animation: none; }
-}
-

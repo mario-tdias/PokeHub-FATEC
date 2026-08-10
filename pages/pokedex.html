@@ -50,35 +50,240 @@
       <canvas id="pokedex3d-canvas"></canvas>
       
       <div id="pokedex3d-overlay" class="pokedex3d-overlay">
-        <div class="ds-pokedex-frame">
-          <img src="../assets/images/pokedex.png" alt="Pokédex Frame" class="ds-bg-image">
-          
+        <div class="viewport-container">
           <button id="resetViewBtn" class="btn-reset-3d" title="Voltar para Pokédex 3D">↺ Visão 3D</button>
           
-          <!-- Top Screen: Pokémon Display (Quadro à esquerda, infos empilhadas à direita) -->
-          <div class="ds-top-screen">
-            <div id="screen" class="ds-screen-content">
-              <div class="placeholder" id="placeholder">
-                <span class="big">◌</span>
-                Digite o nome de um pokémon na tela inferior e pressione buscar
+          <div id="pokedex-wrapper" class="pokedex-wrapper" data-name="Pokedex">
+            
+            <!-- Corpo Pad -->
+            <div class="corpo-pad" data-name="corpo_pad">
+              <div class="corpo-pad-svg-wrap">
+                <svg class="svg-full" fill="none" height="1287" preserveAspectRatio="none" viewBox="0 0 1079 1287" width="1079">
+                  <g id="corpo_pad">
+                    <g filter="url(#filter0_ii_0_14)" id="Lower Body">
+                      <path d="M268 644H1079V1237C1079 1264.61 1056.61 1287 1029 1287H318C290.386 1287 268 1264.61 268 1237V644Z" fill="url(#paint0_linear_0_14)" />
+                    </g>
+                    <g filter="url(#filter1_i_0_14)" id="Ellipse 1">
+                      <ellipse cx="263.5" cy="321" fill="url(#paint1_linear_0_14)" rx="263.5" ry="263" />
+                    </g>
+                    <g filter="url(#filter2_i_0_14)" id="Body">
+                      <path d="M268 0H1029C1056.61 0 1079 22.3858 1079 50V644H268V0Z" fill="url(#paint2_linear_0_14)" />
+                    </g>
+                  </g>
+                  <defs>
+                    <filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="651" id="filter0_ii_0_14" width="811" x="268" y="640">
+                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
+                      <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+                      <feOffset dy="-4" />
+                      <feGaussianBlur stdDeviation="2" />
+                      <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic" />
+                      <feColorMatrix type="matrix" values="0 0 0 0 0.889423 0 0 0 0 0.196699 0 0 0 0 0.196699 0 0 0 0.25 0" />
+                      <feBlend in2="shape" mode="normal" result="effect1_innerShadow_0_14" />
+                    </filter>
+                    <filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="530" id="filter1_i_0_14" width="527" x="0" y="58">
+                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
+                      <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+                      <feOffset dy="4" />
+                      <feGaussianBlur stdDeviation="2" />
+                      <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic" />
+                      <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.4 0" />
+                      <feBlend in2="shape" mode="normal" result="effect1_innerShadow_0_14" />
+                    </filter>
+                    <filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="648" id="filter2_i_0_14" width="811" x="268" y="0">
+                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
+                      <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+                      <feOffset dy="4" />
+                      <feGaussianBlur stdDeviation="2" />
+                      <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic" />
+                      <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.4 0" />
+                      <feBlend in2="shape" mode="normal" result="effect1_innerShadow_0_14" />
+                    </filter>
+                    <linearGradient gradientUnits="userSpaceOnUse" id="paint0_linear_0_14" x1="673.5" x2="673.5" y1="1304.47" y2="552.79">
+                      <stop stop-color="#C0171C" />
+                      <stop offset="1" stop-color="#5A0B0D" />
+                    </linearGradient>
+                    <linearGradient gradientUnits="userSpaceOnUse" id="paint1_linear_0_14" x1="263.5" x2="263.5" y1="58" y2="791.113">
+                      <stop stop-color="#C1171C" />
+                      <stop offset="1" stop-color="#5B0B0D" />
+                    </linearGradient>
+                    <linearGradient gradientUnits="userSpaceOnUse" id="paint2_linear_0_14" x1="581.828" x2="667.859" y1="53.7747" y2="734.769">
+                      <stop stop-color="#C0171C" />
+                      <stop offset="1" stop-color="#5A0B0D" />
+                    </linearGradient>
+                  </defs>
+                </svg>
               </div>
             </div>
-          </div>
 
-          <!-- Bottom Screen: Campo de Busca e Controles -->
-          <div class="ds-bottom-screen">
-            <div class="ds-touch-controls">
-              <div class="controls-label">BUSCADOR POKÉHUB</div>
-              <div class="controls">
-                <input type="text" id="pokeInput" placeholder="ex: lucario" autocomplete="off">
-                <button id="searchBtn" aria-label="Buscar">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#4a2f00" stroke-width="2.5" stroke-linecap="round">
-                    <circle cx="11" cy="11" r="7"/>
-                    <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-                  </svg>
-                </button>
+            <!-- Teclado Pad (Tela Inferior com Controles) -->
+            <div class="teclado-pad" data-name="teclado_pad">
+              <div class="outer-keypad" data-name="Outer Keypad">
+                <div class="outer-keypad-bg" aria-hidden="true"></div>
+                <div class="outer-keypad-shadow"></div>
+              </div>
+              <div class="keypad-middle" data-name="Keypad">
+                <div class="keypad-middle-gradient" aria-hidden="true"></div>
+                <div class="keypad-middle-shadow"></div>
+              </div>
+              <div class="keypad-container" data-name="Keypad Container">
+                <div class="keypad-container-bg" aria-hidden="true"></div>
+                <div class="keypad-container-shadow"></div>
+              </div>
+              <div class="ds-touch-controls">
+                <div class="controls-label">BUSCADOR POKÉHUB</div>
+                <div class="controls">
+                  <input type="text" id="pokeInput" placeholder="ex: lucario" autocomplete="off">
+                  <button id="searchBtn" aria-label="Buscar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#4a2f00" stroke-width="2.5" stroke-linecap="round">
+                      <circle cx="11" cy="11" r="7"/>
+                      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
+
+            <!-- Tela Pad (Tela Superior com Informações) -->
+            <div class="tela-pad" data-name="tela_pad">
+              <div class="tela-outer" data-name="Outer Container">
+                <div class="tela-outer-bg" aria-hidden="true"></div>
+                <div class="tela-outer-shadow"></div>
+              </div>
+              <div class="tela-middle" data-name="Container">
+                <div class="tela-middle-gradient" aria-hidden="true"></div>
+                <div class="tela-middle-shadow1"></div>
+                <div class="tela-middle-shadow2" aria-hidden="true"></div>
+              </div>
+              <div class="tela-inner" data-name="Screen Container">
+                <div class="tela-inner-bg" aria-hidden="true"></div>
+                <div class="tela-inner-shadow"></div>
+                <div class="tela-inner-border" aria-hidden="true"></div>
+              </div>
+              <div id="screen" class="tela-text-area">
+                <div class="placeholder" id="placeholder">
+                  <span class="big">◌</span>
+                  Digite o nome de um pokémon na tela inferior e pressione buscar
+                </div>
+              </div>
+            </div>
+
+            <!-- Botoes Pad -->
+            <div class="botoes-pad" data-name="botoes_pad">
+              <div class="botoes-pad-wrap">
+                <svg class="svg-full" fill="none" height="93" preserveAspectRatio="none" viewBox="0 0 27 93" width="27">
+                  <g id="botoes_pad">
+                    <g id="Ellipse 8">
+                      <ellipse cx="13.5" cy="80" fill="#070707" rx="13.5" ry="13" />
+                      <path d="M13.5 67.5C20.6977 67.5 26.5 73.1141 26.5 80C26.5 86.8859 20.6977 92.5 13.5 92.5C6.30234 92.5 0.5 86.8859 0.5 80C0.5 73.1141 6.30234 0.5 13.5 0.5Z" stroke="#DDDBDB" stroke-opacity="0.1" />
+                    </g>
+                    <g id="Ellipse 7">
+                      <ellipse cx="13.5" cy="13" fill="#070707" rx="13.5" ry="13" />
+                      <path d="M13.5 0.5C20.6977 0.5 26.5 6.11406 26.5 13C26.5 19.8859 20.6977 25.5 13.5 25.5C6.30234 25.5 0.5 19.8859 0.5 13C0.5 6.11406 6.30234 0.5 13.5 0.5Z" stroke="#DDDBDB" stroke-opacity="0.1" />
+                    </g>
+                  </g>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Button -->
+            <div class="button-pad" data-name="Button">
+              <svg class="svg-full" fill="none" height="26" preserveAspectRatio="none" viewBox="0 0 27 26" width="27">
+                <g id="Button">
+                  <g filter="url(#filter0_i_0_9)" id="botão">
+                    <ellipse cx="13.5" cy="13" fill="#070707" rx="13.5" ry="13" />
+                  </g>
+                </g>
+                <defs>
+                  <filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="26" id="filter0_i_0_9" width="27" x="0" y="0">
+                    <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                    <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
+                    <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+                    <feOffset />
+                    <feGaussianBlur stdDeviation="2" />
+                    <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic" />
+                    <feColorMatrix type="matrix" values="0 0 0 0 0.85098 0 0 0 0 0.85098 0 0 0 0 0.85098 0 0 0 0.2 0" />
+                    <feBlend in2="shape" mode="normal" result="effect1_innerShadow_0_9" />
+                  </filter>
+                </defs>
+              </svg>
+            </div>
+
+            <!-- Luz -->
+            <div class="luz-pad" data-name="luz">
+              <div class="luz-pad-wrap">
+                <svg class="svg-full" fill="none" height="191" preserveAspectRatio="none" viewBox="0 0 198 191" width="198">
+                  <g id="luz">
+                    <g filter="url(#filter0_i_0_4)" id="Ellipse 5">
+                      <circle cx="99" cy="171" fill="#050200" r="20" />
+                    </g>
+                    <g filter="url(#filter1_i_0_4)" id="Ellipse 2">
+                      <circle cx="20" cy="97" fill="#050200" r="20" />
+                    </g>
+                    <g filter="url(#filter2_i_0_4)" id="Ellipse 6">
+                      <circle cx="178" cy="97" fill="#050200" r="20" />
+                    </g>
+                    <g filter="url(#filter3_i_0_4)" id="Ellipse 4">
+                      <path d="M119 19.5C119 30.2696 110.046 39 99 39C87.9543 39 79 30.2696 79 19.5C79 8.73045 87.9543 0 99 0C110.046 0 119 8.73045 119 19.5Z" fill="#050200" />
+                    </g>
+                  </g>
+                  <defs>
+                    <filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="40" id="filter0_i_0_4" width="40" x="79" y="151">
+                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
+                      <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+                      <feOffset />
+                      <feGaussianBlur stdDeviation="2" />
+                      <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic" />
+                      <feColorMatrix type="matrix" values="0 0 0 0 0.85098 0 0 0 0 0.85098 0 0 0 0 0.85098 0 0 0 0.5 0" />
+                      <feBlend in2="shape" mode="normal" result="effect1_innerShadow_0_4" />
+                    </filter>
+                    <filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="40" id="filter1_i_0_4" width="40" x="0" y="77">
+                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
+                      <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+                      <feOffset />
+                      <feGaussianBlur stdDeviation="2" />
+                      <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic" />
+                      <feColorMatrix type="matrix" values="0 0 0 0 0.865385 0 0 0 0 0.857064 0 0 0 0 0.857064 0 0 0 0.5 0" />
+                      <feBlend in2="shape" mode="normal" result="effect1_innerShadow_0_4" />
+                    </filter>
+                    <filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="40" id="filter2_i_0_4" width="40" x="158" y="77">
+                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
+                      <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+                      <feOffset />
+                      <feGaussianBlur stdDeviation="2" />
+                      <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic" />
+                      <feColorMatrix type="matrix" values="0 0 0 0 0.865385 0 0 0 0 0.857064 0 0 0 0 0.857064 0 0 0 0.5 0" />
+                      <feBlend in2="shape" mode="normal" result="effect1_innerShadow_0_4" />
+                    </filter>
+                    <filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" height="39" id="filter3_i_0_4" width="40" x="79" y="0">
+                      <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                      <feBlend in="SourceGraphic" in2="BackgroundImageFix" mode="normal" result="shape" />
+                      <feColorMatrix in="SourceAlpha" result="hardAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+                      <feOffset />
+                      <feGaussianBlur stdDeviation="2" />
+                      <feComposite in2="hardAlpha" k2="-1" k3="1" operator="arithmetic" />
+                      <feColorMatrix type="matrix" values="0 0 0 0 0.894231 0 0 0 0 0.859837 0 0 0 0 0.859837 0 0 0 0.5 0" />
+                      <feBlend in2="shape" mode="normal" result="effect1_innerShadow_0_4" />
+                    </filter>
+                  </defs>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Moldura Pokémon -->
+            <div class="moldura-pokemon" data-name="moldura_pokemon">
+              <div class="screen-base" data-name="Screen">
+                <div class="screen-frame-border" aria-hidden="true"></div>
+              </div>
+              <div class="screen-overlay" data-name="Screen"></div>
+              <div id="sprite-box" class="ds-quadro-content"></div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -92,5 +297,21 @@
   <script src="../assets/js/script.js"></script>
   <script type="module" src="../assets/js/pokedex3d.js"></script>
   <script src="../assets/js/pokedex.js"></script>
+  <script>
+    function updateScale() {
+      const designW = 1079;
+      const designH = 1287;
+      const container = document.getElementById('pokedex3d-container');
+      const vw = container ? container.clientWidth : window.innerWidth;
+      const vh = container ? container.clientHeight : window.innerHeight;
+      const scale = Math.min(vw / designW, vh / designH) * 0.95;
+      const wrapper = document.getElementById('pokedex-wrapper');
+      if (wrapper) {
+        wrapper.style.transform = `scale(${scale})`;
+      }
+    }
+    window.addEventListener('resize', updateScale);
+    window.addEventListener('DOMContentLoaded', updateScale);
+  </script>
 </body>
 </html>
