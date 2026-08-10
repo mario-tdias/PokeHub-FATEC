@@ -31,71 +31,38 @@
     }
     if (THREE.ACESFilmicToneMapping) {
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.15;
+      renderer.toneMappingExposure = 1.0;
     }
-
-    // High quality studio lighting setup for GLTF models
-    const ambientLight = new THREE.AmbientLight(0xffffff, 2.2);
-    scene.add(ambientLight);
-
-    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x333344, 1.5);
-    hemiLight.position.set(0, 20, 0);
-    scene.add(hemiLight);
-
-    const mainLight = new THREE.DirectionalLight(0xffffff, 3.2);
-    mainLight.position.set(5, 12, 8);
-    scene.add(mainLight);
-
-    const fillLight = new THREE.DirectionalLight(0x90c0ff, 2.0);
-    fillLight.position.set(-6, 6, 6);
-    scene.add(fillLight);
-
-    const backLight = new THREE.DirectionalLight(0xffd54f, 1.5);
-    backLight.position.set(0, 6, -8);
-    scene.add(backLight);
 
     pokedexGroup = new THREE.Group();
     scene.add(pokedexGroup);
 
-    loadEmissiveTexture();
+    // Soft ambient lighting so shadows are clear, not pitch black
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
+    scene.add(ambientLight);
+
+    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);
+    hemiLight.position.set(0, 20, 0);
+    scene.add(hemiLight);
+
+    // SpotLight (Holofote) focused directly on the Pokédex 3D object
+    const spotLight = new THREE.SpotLight(0xffffff, 2.8);
+    spotLight.position.set(4, 10, 9);
+    spotLight.angle = Math.PI / 4;
+    spotLight.penumbra = 0.5;
+    spotLight.decay = 1;
+    spotLight.target = pokedexGroup;
+    scene.add(spotLight);
+
+    // Subtle fill light for back side details
+    const backFillLight = new THREE.DirectionalLight(0xffffff, 0.6);
+    backFillLight.position.set(-4, -4, -6);
+    scene.add(backFillLight);
+
     loadGLTFModel();
 
     addEventListeners();
     animate();
-  }
-
-  let emissiveTextureMap = null;
-
-  function loadEmissiveTexture() {
-    if (typeof THREE.TextureLoader === "undefined") return;
-    const textureLoader = new THREE.TextureLoader();
-    textureLoader.load(
-      "../assets/models/dex-3d/texture_emissive_00.png",
-      (texture) => {
-        texture.flipY = false;
-        if (THREE.sRGBEncoding) {
-          texture.encoding = THREE.sRGBEncoding;
-        }
-        emissiveTextureMap = texture;
-        applyEmissiveMap();
-      },
-      undefined,
-      (err) => {
-        console.warn("Textura emissiva dex-3d não carregada:", err);
-      }
-    );
-  }
-
-  function applyEmissiveMap() {
-    if (!pokedexGroup || !emissiveTextureMap) return;
-    pokedexGroup.traverse((child) => {
-      if (child.isMesh && child.material) {
-        child.material.emissiveMap = emissiveTextureMap;
-        child.material.emissive = new THREE.Color(0xffffff);
-        child.material.emissiveIntensity = 1.0;
-        child.material.needsUpdate = true;
-      }
-    });
   }
 
   function loadGLTFModel() {
@@ -149,7 +116,6 @@
           }
 
           pokedexGroup.add(model);
-          applyEmissiveMap();
           console.log("Modelo 3D GLTF carregado com sucesso:", candidatePaths[index]);
         },
         undefined,
