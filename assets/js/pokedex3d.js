@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 
 const container = document.getElementById("pokedex3d-container");
 const canvas = document.getElementById("pokedex3d-canvas");
@@ -36,29 +37,19 @@ if (container && canvas) {
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-  // Studio lighting setup matching the reference image
-  const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+  // Configuração do mapa de ambiente sintético (RoomEnvironment)
+  const pmremGenerator = new THREE.PMREMGenerator(renderer);
+  pmremGenerator.compileEquirectangularShader();
+  scene.environment = pmremGenerator.fromScene(new RoomEnvironment(renderer), 0.04).texture;
+
+  // As luzes direcionais entram para dar destaques e sombras
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
   scene.add(ambientLight);
 
-  const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444455, 1.0);
-  hemiLight.position.set(0, 20, 0);
-  scene.add(hemiLight);
-
-  // Key light (top-right-front)
-  const mainLight = new THREE.DirectionalLight(0xffffff, 2.2);
-  mainLight.position.set(5, 8, 7);
+  const mainLight = new THREE.DirectionalLight(0xffffff, 1.5);
+  mainLight.position.set(5, 10, 7);
   mainLight.castShadow = true;
   scene.add(mainLight);
-
-  // Fill light (front-left)
-  const fillLight = new THREE.DirectionalLight(0xa0c0e0, 1.0);
-  fillLight.position.set(-5, 4, 5);
-  scene.add(fillLight);
-
-  // Rim light (back)
-  const backLight = new THREE.DirectionalLight(0xffffff, 0.8);
-  backLight.position.set(0, 5, -6);
-  scene.add(backLight);
 
   pokedexGroup = new THREE.Group();
   scene.add(pokedexGroup);
@@ -87,12 +78,18 @@ if (container && canvas) {
         const model = gltf.scene;
 
         model.traverse((child) => {
-          if (child.isMesh) {
+          if (child.isMesh && child.material) {
             child.castShadow = true;
             child.receiveShadow = true;
-            if (child.material) {
-              child.material.needsUpdate = true;
+            // Se o modelo veio com metalicidade alta demais no plástico, reduzimos:
+            if (child.material.metalness !== undefined && child.material.metalness > 0.3) {
+              child.material.metalness = 0.1;
             }
+            // Garante que o material tenha um mínimo de rugosidade para espalhar a luz
+            if (child.material.roughness !== undefined && child.material.roughness < 0.2) {
+              child.material.roughness = 0.35;
+            }
+            child.material.needsUpdate = true;
           }
         });
 
@@ -128,6 +125,7 @@ if (container && canvas) {
   controls.enableDamping = true;
   controls.dampingFactor = 0.08;
   controls.enableZoom = false;
+  controls.enableRotate = false;
 
   container.addEventListener("pointermove", (e) => {
     if (isZoomed) return;
