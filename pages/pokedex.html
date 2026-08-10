@@ -81,9 +81,16 @@
   </main>
 
   <script src="../assets/js/script.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-  <script src="../assets/js/pokedex3d.js"></script>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/examples/jsm/controls/OrbitControls.js": "https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js",
+        "@splinetool/loader": "https://unpkg.com/@splinetool/loader@1.9.80/build/SplineLoader.js"
+      }
+    }
+  </script>
+  <script type="module" src="../assets/js/pokedex3d.js"></script>
   <script src="../assets/js/pokedex.js"></script>
 </body>
 </html>

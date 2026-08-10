@@ -1,204 +1,100 @@
-(function () {
-  const container = document.getElementById("pokedex3d-container");
-  const canvas = document.getElementById("pokedex3d-canvas");
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import SplineLoader from '@splinetool/loader';
 
-  if (!container || !canvas) return;
+const container = document.getElementById("pokedex3d-container");
+const canvas = document.getElementById("pokedex3d-canvas");
 
-  let scene, camera, renderer, pokedexGroup;
-  let isZoomed = false;
-  let targetRotationX = 0;
-  let targetRotationY = 0;
+let isZoomed = false;
 
-  const initialCamPos = { x: 0, y: 0, z: 5.5 };
-  const zoomedCamPos = { x: 0, y: 0, z: 2.8 };
+if (container && canvas) {
+  // camera
+  const camera = new THREE.OrthographicCamera(
+    container.clientWidth / -2,
+    container.clientWidth / 2,
+    container.clientHeight / 2,
+    container.clientHeight / -2,
+    -50000,
+    10000
+  );
+  camera.position.set(0, 0, 0);
+  camera.quaternion.setFromEuler(new THREE.Euler(0, 0, 0));
 
-  function init() {
-    scene = new THREE.Scene();
+  // scene
+  const scene = new THREE.Scene();
 
-    camera = new THREE.PerspectiveCamera(
-      45,
-      container.clientWidth / container.clientHeight,
-      0.1,
-      1000
-    );
-    camera.position.set(initialCamPos.x, initialCamPos.y, initialCamPos.z);
+  // spline scene
+  const loader = new SplineLoader();
+  loader.load(
+    'https://prod.spline.design/RZuBKTHpfw8KawwV/scene.splinecode',
+    (splineScene) => {
+      scene.add(splineScene);
+    }
+  );
 
-    renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+  // renderer
+  const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  // scene settings
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFShadowMap;
+
+  renderer.setClearAlpha(0);
+
+  // orbit controls
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.125;
+
+  function onWindowResize() {
+    if (!container) return;
+    camera.left = container.clientWidth / -2;
+    camera.right = container.clientWidth / 2;
+    camera.top = container.clientHeight / 2;
+    camera.bottom = container.clientHeight / -2;
+    camera.updateProjectionMatrix();
     renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    if (THREE.sRGBEncoding) {
-      renderer.outputEncoding = THREE.sRGBEncoding;
-    }
-    if (THREE.ACESFilmicToneMapping) {
-      renderer.toneMapping = THREE.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = 1.0;
-    }
-
-    pokedexGroup = new THREE.Group();
-    scene.add(pokedexGroup);
-
-    // Soft ambient lighting so shadows are clear, not pitch black
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
-    scene.add(ambientLight);
-
-    const hemiLight = new THREE.HemisphereLight(0xffffff, 0x444444, 0.6);
-    hemiLight.position.set(0, 20, 0);
-    scene.add(hemiLight);
-
-    // SpotLight (Holofote) focused directly on the Pokédex 3D object
-    const spotLight = new THREE.SpotLight(0xffffff, 2.8);
-    spotLight.position.set(4, 10, 9);
-    spotLight.angle = Math.PI / 4;
-    spotLight.penumbra = 0.5;
-    spotLight.decay = 1;
-    spotLight.target = pokedexGroup;
-    scene.add(spotLight);
-
-    // Subtle fill light for back side details
-    const backFillLight = new THREE.DirectionalLight(0xffffff, 0.6);
-    backFillLight.position.set(-4, -4, -6);
-    scene.add(backFillLight);
-
-    loadGLTFModel();
-
-    addEventListeners();
-    animate();
   }
 
-  function loadGLTFModel() {
-    if (typeof THREE.GLTFLoader === "undefined") return;
-    const loader = new THREE.GLTFLoader();
-    const candidatePaths = [
-      "../assets/models/dex-3d/base_basic_pbr.glb",
-      "../assets/base_basic_pbr.glb",
-      "../assets/models/pokedex.glb",
-      "../assets/models/dex-3d/base_basic_shaded.glb"
-    ];
+  window.addEventListener('resize', onWindowResize);
 
-    function tryLoad(index) {
-      if (index >= candidatePaths.length) {
-        console.log("Nenhum modelo .glb encontrado nos caminhos.");
-        return;
-      }
-
-      loader.load(
-        candidatePaths[index],
-        (gltf) => {
-          if (typeof pokedexGroup.clear === "function") {
-            pokedexGroup.clear();
-          } else {
-            while (pokedexGroup.children.length > 0) {
-              pokedexGroup.remove(pokedexGroup.children[0]);
-            }
-          }
-
-          const model = gltf.scene;
-
-          model.traverse((child) => {
-            if (child.isMesh && child.material) {
-              child.material.needsUpdate = true;
-            }
-          });
-
-          // Auto center and auto scale model
-          const box = new THREE.Box3().setFromObject(model);
-          const center = box.getCenter(new THREE.Vector3());
-          const size = box.getSize(new THREE.Vector3());
-
-          model.position.x -= center.x;
-          model.position.y -= center.y;
-          model.position.z -= center.z;
-
-          const maxDimension = Math.max(size.x, size.y, size.z);
-          if (maxDimension > 0) {
-            const desiredScale = 3.2 / maxDimension;
-            model.scale.set(desiredScale, desiredScale, desiredScale);
-          }
-
-          pokedexGroup.add(model);
-          console.log("Modelo 3D GLTF carregado com sucesso:", candidatePaths[index]);
-        },
-        undefined,
-        (err) => {
-          console.warn("Falha ao carregar:", candidatePaths[index], err);
-          tryLoad(index + 1);
-        }
-      );
-    }
-
-    tryLoad(0);
-  }
-
-  function addEventListeners() {
-    container.addEventListener("pointermove", (e) => {
-      if (isZoomed) return;
-      const rect = container.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / container.clientWidth) * 2 - 1;
-      const y = -(((e.clientY - rect.top) / container.clientHeight) * 2 - 1);
-      targetRotationY = x * 0.35;
-      targetRotationX = -y * 0.25;
-    });
-
-    canvas.addEventListener("click", () => {
-      if (!window.Pokedex3D.isZoomed()) {
-        window.Pokedex3D.zoomIn();
-      }
-    });
-
-    const resetBtn = document.getElementById("resetViewBtn");
-    if (resetBtn) {
-      resetBtn.addEventListener("click", (e) => {
-        e.stopPropagation();
-        window.Pokedex3D.resetView();
-      });
-    }
-
-    window.addEventListener("resize", () => {
-      camera.aspect = container.clientWidth / container.clientHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(container.clientWidth, container.clientHeight);
-    });
-  }
-
-  function animate() {
+  function animate(time) {
     requestAnimationFrame(animate);
-
-    if (!isZoomed) {
-      pokedexGroup.rotation.y += (targetRotationY - pokedexGroup.rotation.y) * 0.08;
-      pokedexGroup.rotation.x += (targetRotationX - pokedexGroup.rotation.x) * 0.08;
-
-      camera.position.x += (initialCamPos.x - camera.position.x) * 0.08;
-      camera.position.y += (initialCamPos.y - camera.position.y) * 0.08;
-      camera.position.z += (initialCamPos.z - camera.position.z) * 0.08;
-    } else {
-      pokedexGroup.rotation.y += (0 - pokedexGroup.rotation.y) * 0.08;
-      pokedexGroup.rotation.x += (0 - pokedexGroup.rotation.x) * 0.08;
-
-      camera.position.x += (zoomedCamPos.x - camera.position.x) * 0.08;
-      camera.position.y += (zoomedCamPos.y - camera.position.y) * 0.08;
-      camera.position.z += (zoomedCamPos.z - camera.position.z) * 0.08;
-    }
-
+    controls.update();
     renderer.render(scene, camera);
+  }
+
+  animate();
+
+  canvas.addEventListener("click", () => {
+    if (!window.Pokedex3D.isZoomed()) {
+      window.Pokedex3D.zoomIn();
+    }
+  });
+
+  const resetBtn = document.getElementById("resetViewBtn");
+  if (resetBtn) {
+    resetBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      window.Pokedex3D.resetView();
+    });
   }
 
   window.Pokedex3D = {
     zoomIn: function () {
       isZoomed = true;
       container.classList.add("zoomed");
-      if (pokedexGroup) pokedexGroup.visible = false;
       if (canvas) canvas.style.display = "none";
     },
     resetView: function () {
       isZoomed = false;
       container.classList.remove("zoomed");
-      if (pokedexGroup) pokedexGroup.visible = true;
       if (canvas) canvas.style.display = "block";
     },
     isZoomed: function () {
       return isZoomed;
     }
   };
-
-  init();
-})();
+}
