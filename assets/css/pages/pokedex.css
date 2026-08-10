@@ -12,21 +12,79 @@
   --ink: #142033;
 }
 
-*{ box-sizing: border-box; }
-
-body{
-  margin:0;
-  min-height:100vh;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:
-    radial-gradient(circle at 50% 0%, #2a3550 0%, #0b1120 70%);
-  font-family:'Space Mono', monospace;
-  color: var(--cream);
-  padding: 28px 16px;
+.pokedex3d-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  height: 600px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
+#pokedex3d-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  cursor: pointer;
+}
+
+.pokedex3d-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.95);
+  width: 100%;
+  max-width: 440px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  z-index: 10;
+}
+
+.pokedex3d-container.zoomed .pokedex3d-overlay {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.btn-reset-3d {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--white);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-left: auto;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.btn-reset-3d:hover {
+  background: var(--red);
+  border-color: var(--red-dark);
+}
+
+.hint-3d {
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.pokedex3d-container.zoomed .hint-3d {
+  opacity: 0;
+}
+
+.overlay-frame,
 .device{
   width: 100%;
   max-width: 420px;
@@ -40,6 +98,7 @@ body{
   position: relative;
 }
 
+.overlay-frame::before,
 .device::before{
   content:"";
   position:absolute;
@@ -49,6 +108,7 @@ body{
   pointer-events:none;
 }
 
+.overlay-header,
 .top-row{
   display:flex;
   align-items:center;
