@@ -95,6 +95,20 @@
       targetRotationX = -y * 0.25;
     });
 
+    canvas.addEventListener("click", () => {
+      if (!window.Pokedex3D.isZoomed()) {
+        window.Pokedex3D.zoomIn();
+      }
+    });
+
+    const resetBtn = document.getElementById("resetViewBtn");
+    if (resetBtn) {
+      resetBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        window.Pokedex3D.resetView();
+      });
+    }
+
     window.addEventListener("resize", () => {
       camera.aspect = container.clientWidth / container.clientHeight;
       camera.updateProjectionMatrix();
