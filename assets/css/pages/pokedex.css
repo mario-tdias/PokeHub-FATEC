@@ -13,7 +13,8 @@
 }
 
 .pokedex-page {
-  height: calc(100vh - 80px);
+  height: 100vh;
+  padding-top: 70px;
   overflow: hidden;
   position: relative;
 }
@@ -263,29 +264,30 @@
 }
 
 .controls-label {
-  font-size: 14px;
-  letter-spacing: 3px;
+  font-size: 17px;
+  letter-spacing: 3.5px;
   color: #6bffb0;
-  font-weight: 700;
+  font-weight: 800;
   text-transform: uppercase;
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .controls {
   display: flex;
-  gap: 10px;
-  width: 90%;
-  max-width: 360px;
+  gap: 12px;
+  width: 95%;
+  max-width: 400px;
 }
 
 .controls input {
   flex: 1;
   background: rgba(10, 16, 26, 0.85);
-  border: 2px solid #12b0f4;
-  border-radius: 8px;
-  padding: 10px 16px;
+  border: 2.5px solid #12b0f4;
+  border-radius: 10px;
+  padding: 12px 18px;
   color: #ffffff;
-  font-size: 15px;
+  font-size: 18px;
+  font-weight: 700;
   font-family: 'Space Mono', monospace;
   outline: none;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
@@ -298,9 +300,9 @@
 .controls button {
   background: #ffcf4a;
   border: none;
-  border-radius: 8px;
-  width: 46px;
-  height: 46px;
+  border-radius: 10px;
+  width: 52px;
+  height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -315,8 +317,8 @@
 }
 
 .controls button svg {
-  width: 22px;
-  height: 22px;
+  width: 26px;
+  height: 26px;
 }
 
 /* ==========================================================================
@@ -419,10 +421,10 @@
 
 .tela-text-area {
   position: absolute;
-  left: 230px;
-  top: 20px;
-  right: 20px;
-  bottom: 20px;
+  left: 220px;
+  top: 15px;
+  right: 15px;
+  bottom: 15px;
   color: #64e878;
   font-family: 'Space Mono', monospace;
   z-index: 10;
@@ -434,14 +436,14 @@
 
 .ds-placeholder {
   color: #8bbdd9;
-  font-size: 15px;
+  font-size: 16px;
   text-align: center;
   line-height: 1.5;
   padding: 10px;
 }
 
 .ds-placeholder .big {
-  font-size: 38px;
+  font-size: 40px;
   display: block;
   margin-bottom: 6px;
 }
@@ -454,15 +456,15 @@
 }
 
 .ds-info-side .poke-number {
-  font-size: 15px;
+  font-size: 17px;
   color: #6bffb0;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   font-weight: 700;
 }
 
 .ds-info-side .poke-name {
   font-family: 'Baloo 2', sans-serif;
-  font-size: 26px;
+  font-size: 30px;
   font-weight: 800;
   color: #ffffff;
   text-transform: capitalize;
@@ -474,12 +476,12 @@
 .ds-info-side .poke-types {
   display: flex;
   gap: 6px;
-  margin: 3px 0;
+  margin: 4px 0;
 }
 
 .ds-info-side .type-pill {
-  font-size: 12px;
-  padding: 4px 10px;
+  font-size: 13px;
+  padding: 5px 12px;
   background: rgba(18, 176, 244, 0.35);
   border: 1px solid #12b0f4;
   border-radius: 6px;
@@ -499,25 +501,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(0, 0, 0, 0.55);
-  border: 1px solid rgba(107, 255, 176, 0.35);
-  padding: 6px 10px;
+  background: rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(107, 255, 176, 0.4);
+  padding: 6px 12px;
   border-radius: 6px;
-  font-size: 13.5px;
+  font-size: 15px;
 }
 
 .ds-info-row strong {
   color: #6bffb0;
   text-transform: uppercase;
-  font-size: 11.5px;
-  letter-spacing: 0.8px;
+  font-size: 12.5px;
+  letter-spacing: 1px;
   font-weight: 700;
 }
 
 .ds-info-row span {
   color: #ffffff;
   font-weight: 600;
-  font-size: 13.5px;
+  font-size: 15px;
 }
 
 /* ==========================================================================
@@ -628,7 +630,7 @@
   max-width: 95%;
   max-height: 95%;
   object-fit: contain;
-  transform: scale(1.15);
+  transform: scale(1.35);
   image-rendering: pixelated;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
 }
