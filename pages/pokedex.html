@@ -306,11 +306,11 @@
       const header = document.getElementById('header');
       const headerH = header ? header.offsetHeight : 72;
       const vw = window.innerWidth;
-      const availableH = window.innerHeight - headerH - 30;
-      const scale = Math.min((vw * 0.92) / designW, availableH / designH);
+      const availableH = window.innerHeight - headerH - 40;
+      const scale = Math.min((vw * 0.90) / designW, availableH / designH);
       const wrapper = document.getElementById('pokedex-wrapper');
       if (wrapper) {
-        wrapper.style.transform = `scale(${scale}) translateX(-85px) translateY(15px)`;
+        wrapper.style.transform = `scale(${scale}) translateX(-85px)`;
       }
     }
     window.addEventListener('resize', updateScale);
