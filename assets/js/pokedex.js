@@ -79,15 +79,15 @@ function mostrarPokemon(pokemon) {
 
   if (spriteBox) {
     spriteBox.innerHTML = `
-      <img src="${imagemPokemon}" alt="${pokemon.name}">
+      <img src="${imagemPokemon}" alt="Sprite oficial do Pokémon ${pokemon.name}" title="${pokemon.name}">
     `;
   }
 
   if (tela) {
     tela.innerHTML = `
       <div class="ds-info-side">
-        <div class="poke-number">Nº ${numero}</div>
-        <div class="poke-name">${pokemon.name}</div>
+        <span class="poke-number">Nº ${numero}</span>
+        <h2 class="poke-name">${pokemon.name}</h2>
         <div class="poke-types">${tipos}</div>
         
         <div class="ds-info-stack">

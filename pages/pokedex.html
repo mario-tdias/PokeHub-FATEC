@@ -307,8 +307,8 @@
       const header = document.getElementById('header');
       const headerHeight = header ? header.offsetHeight : 80;
       const vw = container ? container.clientWidth : window.innerWidth;
-      const vh = (container ? container.clientHeight : window.innerHeight) - headerHeight;
-      const scale = Math.min(vw / designW, vh / designH) * 0.76;
+      const vh = window.innerHeight - headerHeight;
+      const scale = Math.min(vw / designW, vh / designH) * 0.72;
       const wrapper = document.getElementById('pokedex-wrapper');
       if (wrapper) {
         wrapper.style.transform = `scale(${scale})`;
