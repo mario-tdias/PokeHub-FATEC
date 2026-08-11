@@ -1,5 +1,10 @@
 # ⚡ PokéHub Fatec
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/4d36074a-95fb-4c33-847b-e6906d71727e" alt="Logo PokéHub Fatec" width="100%" style="max-width: 800px;">
+</p>
+
+
 > A plataforma da comunidade Pokémon para estudantes da **FATEC Registro / SP**.
 
 ---
