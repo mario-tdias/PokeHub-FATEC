@@ -303,15 +303,14 @@
     function updateScale() {
       const designW = 1079;
       const designH = 1287;
-      const container = document.getElementById('pokedex3d-container');
       const header = document.getElementById('header');
-      const headerHeight = header ? header.offsetHeight : 80;
+      const headerH = header ? header.offsetHeight : 72;
       const vw = window.innerWidth;
-      const vh = window.innerHeight - headerHeight;
-      const scale = Math.min((vw * 0.95) / designW, (vh * 0.95) / designH);
+      const availableH = window.innerHeight - headerH - 30;
+      const scale = Math.min((vw * 0.92) / designW, availableH / designH);
       const wrapper = document.getElementById('pokedex-wrapper');
       if (wrapper) {
-        wrapper.style.transform = `scale(${scale}) translateX(-85px)`;
+        wrapper.style.transform = `scale(${scale}) translateX(-85px) translateY(15px)`;
       }
     }
     window.addEventListener('resize', updateScale);
