@@ -1,0 +1,44 @@
+# Dependências e Variáveis Sensibilizadas
+node_modules/
+.env
+.env.local
+.env.*.local
+
+# Arquivos de Sistema
+.DS_Store
+Thumbs.db
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.sublime-project
+*.sublime-workspace
+.SETUP.md
+
+# Ambiente de Desenvolvimento
+.cache/
+dist/
+build/
+
+# Banco de Dados (local)
+*.db
+*.sqlite
+*.sqlite3
+dump.sql
+
+# Arquivos Temporários
+tmp/
+temp/
+.temp/
+
+# Tokens e Chaves
+*.pem
+*.key
+*.crt

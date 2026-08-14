@@ -36,7 +36,25 @@
                     <li><a href="pages/comunidade.html">Comunidade</a></li>
                     <li><a href="pages/ranking.html">Ranking</a></li>
                 </ul>
-                <a href="#login" class="btn btn-outline btn-sm">Login</a>
+                <div class="nav-auth" id="nav-auth">
+                    <a href="pages/login.html" class="btn btn-secondary btn-sm" id="nav-login-btn">Login</a>
+
+                    <div class="nav-user-menu" id="nav-user-menu" hidden>
+                        <button class="nav-user-btn" id="nav-user-btn" type="button" aria-expanded="false">
+                            <span class="nav-user-avatar" aria-hidden="true">👤</span>
+                            <span id="nav-user-name">Usuário</span>
+                            <span class="nav-user-caret" aria-hidden="true">▾</span>
+                        </button>
+
+                        <div class="nav-user-dropdown" id="nav-user-dropdown">
+                            <button type="button" class="nav-dropdown-item">Conta</button>
+                            <button type="button" class="nav-dropdown-item">Minhas cartas</button>
+                            <button type="button" class="nav-dropdown-item nav-logout-item" id="nav-logout-btn">
+                                Logout
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </nav>
     </header>
@@ -168,8 +186,9 @@
         </div>
     </footer>
 
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/home.js"></script>
+    <script src="assets/js/script.js" defer></script>
+    <script src="assets/js/navbar.js" defer></script>
+    <script src="assets/js/home.js" defer></script>
 </body>
 
 </html>

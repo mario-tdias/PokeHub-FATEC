@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — PokéHub Fatec</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/global.css">
+    <link rel="stylesheet" href="../assets/css/auth.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>Login</h1>
+                <p>Bem-vindo ao PokéHub Fatec</p>
+            </div>
+
+            <form id="form-login" class="auth-form">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="seu@email.com"
+                        required
+                    >
+                    <span class="error-message" id="error-email"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <div class="password-group">
+                        <input 
+                            type="password" 
+                            id="senha" 
+                            name="senha" 
+                            placeholder="••••••••"
+                            required
+                        >
+                        <button type="button" class="toggle-password" id="toggle-password">
+                            <svg class="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                        </button>
+                    </div>
+                    <span class="error-message" id="error-senha"></span>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-login">
+                    Entrar
+                </button>
+
+                <div class="error-message" id="error-geral"></div>
+            </form>
+
+            <div class="auth-footer">
+                <p>Não tem conta? <a href="registro.html">Registre-se aqui</a></p>
+                <a href="../index.html" class="link-voltar">Voltar para Home</a>
+            </div>
+        </div>
+
+        <div class="auth-info">
+            <h2>🎮 PokéHub Fatec</h2>
+            <p>Conecte-se com a comunidade Pokémon da FATEC Registro</p>
+            <ul class="features-list">
+                <li>✨ Pokédex interativa</li>
+                <li>🃏 Busca TCG em tempo real</li>
+                <li>🎴 Acervo de cartas</li>
+                <li>👥 Comunidade Pokémon</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="../assets/js/auth.js" defer></script>
+</body>
+</html>
